@@ -3,7 +3,8 @@ import StopSet;
 import groovy.json.*
 import groovy.transform.*
 
-class GetJSONpairs {
+class GetJSONchildren
+ {
 
 	def highFreqWords = 50
 	def maxWordPairs = 40
@@ -78,11 +79,24 @@ class GetJSONpairs {
 		println "wordPairList take 5: " + wordPairList.take(5)
 
 		wordPairList = wordPairList.take(maxWordPairs)
+		
+		def tree = [:]
+		
+		wordPairList.each{
+			
+			def src = steminfo[it.word0].max { it.value }.key
+			def tgt = steminfo[it.word1].max { it.value }.key
+			
+			def link = tree.get((src)) ?: []
+			
+			
+		}
 
+		
 		def data = [
 
 				links: wordPairList.collect {
-
+					
 					def src = steminfo[it.word0].max { it.value }.key
 					def tgt = steminfo[it.word1].max { it.value }.key
 
@@ -124,7 +138,8 @@ class GetJSONpairs {
 				{ a, b -> Math.abs(a - b) - 1 }
 						.findAll { it <= MAX_DISTANCE }
 						.sum {
-					powers[it] //    Math.pow(0.9, it)
+					//powers[it] 
+					    Math.pow(0.5, it)
 				}
 
 		return coocVal ?: 0.0;

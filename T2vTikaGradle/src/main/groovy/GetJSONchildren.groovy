@@ -87,8 +87,7 @@ class GetJSONchildren
 			def src = steminfo[it.word0].max { it.value }.key
 			def tgt = steminfo[it.word1].max { it.value }.key
 			
-			def link = tree.get((src)) ?: []
-			
+			def link = tree.get((src)) ?: []	
 			
 		}
 

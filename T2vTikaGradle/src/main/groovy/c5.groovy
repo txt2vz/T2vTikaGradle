@@ -12,18 +12,27 @@ Object wordPairsToParentChild(Object c, String source, String target ) {
 			res << target
 		}
 		else {
-			wordPairsToParentChild (c.values(), source, target)
+			println " not map c.values " + c.values() + " class c.values " + c.values().class
+			def zz  = c.values().collectNested {
+				println "****in c vlaues it is $it"
+				"zzzzzzz"
+			}
+			println "zz $zz"
+			zz
+			
+			//wordPairsToParentChild (c.values(), source, target)
 		}
 	} else
 	if (c in List){
-		c.collect {
+		println "c is $c"
+		c=c.collectNested {
 			if (it == source){
-				if (it in Map){
-					it.value << target
-				} else{
-					it = [(source): target]
-				}
-			} else
+				println "setting source in list it $it target $target"
+				//[it : target]
+				"rrrrr"
+				
+			}
+			else
 				// not found in list
 				if (it in Map){
 					wordPairsToParentChild (it, source, target)
@@ -65,14 +74,14 @@ def links2=
 			wordpairs.collect{ wordPair ->
 				def src = wordPair[0]
 				def target = wordPair[1]
-				println "src $src target $target"			
+				println "src $src target $target"
 
 				if (tree.isEmpty()){
 					tree << [ (src) : [target]]
 				}
 				else {
 					println " tree at start $tree"
-				
+
 					wordPairsToParentChild(tree, src, target)
 
 					println "tree after $tree"

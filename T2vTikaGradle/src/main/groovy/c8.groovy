@@ -4,10 +4,10 @@ import groovy.json.*
 Map wordPairsToParentChild(Map map, String source, String target ) {
 
 	map.each {mapElement ->
-		if (mapElement.key == target){  //skip
+		if (mapElement.key == target){
+			//skip
 			println "skipping it.key ${mapElement.key} source $source target $target"
-		}else
-		{		
+		}else {
 			if (mapElement.key == source){
 				mapElement.value << target
 			}else {
@@ -15,15 +15,15 @@ Map wordPairsToParentChild(Map map, String source, String target ) {
 				assert mapElement.value in List
 				mapElement.value = mapElement.value.collect {listElement ->
 					if (listElement in Map){
-						println "map found &&&& le $listElement"					
-						wordPairsToParentChild (listElement, source, target)					
+						println "map found &&&& le $listElement"
+						wordPairsToParentChild (listElement, source, target)
 					}
 					if (source == listElement){
 						println "** source $source le $listElement"
 						[(listElement) : [target]]
-					} 	else 
-				listElement
-				}	
+					} 	else
+						listElement
+				}
 			}
 		}
 	}
@@ -46,31 +46,31 @@ def wordpairs =[
 def tree = [:]
 println "wordpairs $wordpairs"
 
-def links2=
-		[
-			wordpairs.collect{ wordPair ->
-				
-				def src = wordPair[0]
-				def target = wordPair[1]
-				println "src $src target $target"
+def jdata = [
+	json : wordpairs.collect{ wordPair ->
 
-				if (tree.isEmpty()){
-				
-					tree << [ (src) : [target]]
-					[name:	src,
-						children: [target]]
-				}
-				else {
-					println " tree at start $tree"
+		def src = wordPair[0]
+		def target = wordPair[1]
+		println "src $src target $target"
 
-					wordPairsToParentChild(tree, src, target)
+		if (tree.isEmpty()){
 
-					println "tree after $tree"
-				}
-			}
-		]
+			tree << [ (src) : [target]]
+			[name: src,
+				children: [target]]
+
+		}
+		else {
+			println " tree at start $tree"
+
+			wordPairsToParentChild(tree, src, target)
+
+			println "tree after $tree"
+		}
+	}
+]
 
 println "tree at end $tree"
-def jsonl = new JsonBuilder(links2)
+def jsonl = new JsonBuilder(jdata)
 println JsonOutput.prettyPrint(jsonl.toString())
 

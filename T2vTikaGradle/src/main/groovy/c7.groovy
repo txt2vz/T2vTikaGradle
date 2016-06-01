@@ -40,13 +40,10 @@ Object wordPairsToParentChild(Object c, String source, String target ) {
 	}
 }
 
-
 // if dest already parent skip
 // if findkey in tree add child
 //else if find value at children[]
 //
-
-
 
 def wordpairs =[
 	["a", "b"],
@@ -56,6 +53,7 @@ def wordpairs =[
 	["c", "x"],
 	["x", "p"],
 	["x", "yes"],
+	["c", "n2"],
 	["x", "zed"]
 ]
 

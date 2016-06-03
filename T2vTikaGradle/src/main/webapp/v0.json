@@ -1,0 +1,46 @@
+{
+    "name": "a",
+    "children": [
+        {
+            "name": "b"
+        },
+        {
+            "name": "c",
+            "children": [
+                {
+                    "name": "d",
+                    "children": [
+                        {
+                            "name": "a",
+                            "children": [
+                                {
+                                    "name": "last"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "x",
+                    "children": [
+                        {
+                            "name": "p"
+                        },
+                        {
+                            "name": "yes"
+                        },
+                        {
+                            "name": "zed"
+                        }
+                    ]
+                },
+                {
+                    "name": "n2"
+                }
+            ]
+        },
+        {
+            "name": "last"
+        }
+    ]
+}

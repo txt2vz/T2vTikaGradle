@@ -81,7 +81,7 @@ class GetJSONpairs {
 
 		def data = [
 
-				links: wordPairList.collect {
+				links: wordPairList.collect { 
 
 					def src = steminfo[it.word0].max { it.value }.key
 					def tgt = steminfo[it.word1].max { it.value }.key

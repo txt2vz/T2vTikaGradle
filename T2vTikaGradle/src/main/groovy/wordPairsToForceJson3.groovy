@@ -1,5 +1,3 @@
-import java.util.Map;
-
 import groovy.json.*
 
 void addPairToMap (Map m, String source, String target){

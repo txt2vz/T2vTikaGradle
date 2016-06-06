@@ -1,17 +1,21 @@
+import java.util.Map;
+
 import groovy.json.*
 
 void addPairToMap (Map m, String source, String target){
 
-	assert source !=target
 	m.each {
 
 		if (it.value in List ){
 			it.value.each{
 				assert it in Map
-			
+				println "In LIST it: $it source $source target $target"
+
 				addPairToMap(it, source, target)
 			}
 		}else{
+			println ""
+			println "in ELSE source $source target $target it  $it itvalue " + it.value
 
 			if (it.value == target){
 				println "*******************************************skipping it.value ${it.value} source $source target $target"
@@ -19,14 +23,27 @@ void addPairToMap (Map m, String source, String target){
 
 				if (it.value ==source) {
 
+					println "ELSE FOUND it: $it  it.value " + it.value + " source $source target $target"
+					
 					if (m.children){
 						m.children << ["name": target]
+						println "children found m[name] " + m["name"]  + " m.name " + m.name + " m.children " +m.children
+						println "m after adding children $m"
 					}else{
-
+						println "no children m.name " + m.name + " m $m"
 						m  << ["name": it.value, "children": [["name" : target]]]
 					}
+
+					//println "m[name] " + m["name"]  + " m.name " + m.name + " m.children " +m.children
+					//m.name = ["name": it.value, "children": [["name": m.name],["name" : target]]]
+
+					//println "m[name] AFTER " + m["name"]  + " m.name " + m.name + " it $it m $m"
+					//println "after add it: $it  it.class " + it.class
+					println ""
 				}
 			}
+			//println ""
+			//println "not list it $it and it.value " + it.value
 		}
 	}
 }
@@ -64,7 +81,7 @@ wordpairs.each {wordPair ->
 }
 
 println "tree at end $tree"
-def jsonTree = new JsonBuilder(tree)
-println "json1 $jsonTree"
-println JsonOutput.prettyPrint(jsonTree.toString())
+def jsonl = new JsonBuilder(tree)
+println "json1 $jsonl"
+println JsonOutput.prettyPrint(jsonl.toString())
 

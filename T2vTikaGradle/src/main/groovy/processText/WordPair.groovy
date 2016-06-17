@@ -1,3 +1,4 @@
+package processText
 import groovy.transform.Canonical
 
 @Canonical

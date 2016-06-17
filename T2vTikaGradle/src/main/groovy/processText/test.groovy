@@ -1,3 +1,4 @@
+package processText
 import groovy.json.*
 
 import static groovy.json.JsonParserType.LAX as RELAX

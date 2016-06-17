@@ -1,3 +1,4 @@
+package processText;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.Part;
-
-
 
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -70,14 +69,14 @@ public class UploadServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//System.out.println("in  upload doppost datta " + s );
+		System.out.println("in  upload doppost datta " + s );
 		
 
-		GetJSONpairs gt = new GetJSONpairs();
-		String set = gt.getWordPairs(s);
+		GenerateWordLinks gt = new GenerateWordLinks();
+		String json = gt.getJSONnetwork(s);
 		//System.out.println(set.toString());
 		
-		response.getWriter().println( set);
+		response.getWriter().println( json);
 		
 		//response.getWriter().println(s);
 	}

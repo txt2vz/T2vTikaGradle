@@ -1,29 +1,33 @@
-import PorterStemmer;
-import java.util.Map;
+package processText
 
-import StopSet;
+import processText.PorterStemmer;
+import java.util.Map
+
 import groovy.json.*
 import groovy.transform.*
+import processText.StopSet;
 
 class GenerateWordLinks {
 
-	def highFreqWords = 50
-	def maxWordPairs = 40
+	def highFreqWords = 100
+	def maxWordPairs = 80
 
-	String getWordPairs(String s, int hfq, int mwp){
+	String getJSONnetwork(String s, int hfq, int mwp){
 		this.highFreqWords=hfq
 		this.maxWordPairs=mwp
-		getWordPairs(s)
+		getJSONnetwork(s)
 	}
 
-	String getWordPairs(String s, int mwp){
+	String getJSONnetwork(String s, int mwp){
 		this.maxWordPairs=mwp
-		getWordPairs(s)
+		getJSONnetwork(s)
 	}
-	String getWordPairs(String s) {
-		
-		 s = new File ('athenaBookChapter.txt').text
-	//	s = s ?: "empty text"
+
+	String getJSONnetwork(String s) {
+
+		//s = new File ('athenaBookChapter.txt').text
+		//s = new File ('d.txt').text
+		s = s ?: "empty text"
 
 		def words = s.replaceAll(/\W/, "  ").toLowerCase().tokenize().minus(StopSet.stopSet)
 		// smallStopSet2);//  stopSet)
@@ -33,10 +37,10 @@ class GenerateWordLinks {
 		println " words size: " + words.size() + " unique words " + words.unique(false).size()
 
 		def stemmer = new PorterStemmer()
-		def stemInfo = [:] //stemmed word is key and value is a map of a particular word form to its frequency
-		def wordToPositionsMap = [:] //stemmed word is key and value is a list of postions where any of the words occur
+		def stemInfo = [:] //stemmed word is key and value is a map of a particular word form and its frequency
+		def wordToPositionsMap = [:] //stemmed word is key and value is a list of positions where any of the words occur
 
-		words.findAll { it.size() > 2 }
+		words.findAll { it.size() > 1 }
 		.eachWithIndex { it, indexWordPosition ->
 
 			def stemmedWord = stemmer.stem(it)
@@ -51,7 +55,6 @@ class GenerateWordLinks {
 			stemInfo[(stemmedWord)] = forms
 		}
 
-		//println "take 2 wordTopositionsMap: " + wordToPositionsMap.take(2)
 		println "take 2 steminfo: " + stemInfo.take(2)
 
 		//sort by size of list (word frequency)
@@ -75,23 +78,26 @@ class GenerateWordLinks {
 		}
 
 		wordPairList = wordPairList.sort { -it.cooc }
-		println "wordPairList take 5: " + wordPairList.take(5)
+		println "wordpair size ${wordPairList.size()} wordPairList take 5: " + wordPairList.take(5)
 
-		wordPairList = wordPairList.take(20)
-		//def json = getJSONgraph(wordPairList, stemInfo)
+		wordPairList = wordPairList.take(maxWordPairs)
+		
+		println "wordpair aftersize ${wordPairList.size()} wordPairList  $wordPairList"
+	//	def json = getJSONgraph(wordPairList, stemInfo)
 		def json = getJSONtree(wordPairList, stemInfo)
 		println "json is $json"
+		return json
 	}
 
-	String getJSONgraph( List wl, Map si){
+	private String getJSONgraph( List wl, Map stemMap){
 
 		def data = [
 
 			links: wl.collect {
 
-				def src = si[it.word0].max { it.value }.key
-				println "it .vaue  " +  si[it.word0].max { it.value }.key
-				def tgt = si[it.word1].max { it.value }.key
+				def src = stemMap[it.word0].max { it.value }.key
+				println "it .vaue  " +  stemMap[it.word0].max { it.value }.key
+				def tgt = stemMap[it.word1].max { it.value }.key
 
 				[source: src,
 					target: tgt,
@@ -104,21 +110,22 @@ class GenerateWordLinks {
 		return json
 	}
 
-	String getJSONtree( List wl, Map si){
+	private String getJSONtree( List wl, Map stemMap){
 		def tree= [:]
 
 		wl.collect {
-			def src =    si[it.word0].max { it.value }.key   //wordPair[0]
-			def target = si[it.word1].max { it.value }.key
+			def src =    stemMap[it.word0].max { it.value }.key
+			def target = stemMap[it.word1].max { it.value }.key
 
 			if (tree.isEmpty()){
 				tree <<
 						[name: src,
 							children: [[name: target]]]
-				println "tree at start $tree"
+				//println "tree at start $tree"
 			}
-			else {
-				addPairToMap(tree, src, target)
+			else {				
+				addPairToMap(tree, src, target)		
+				addPairToMap(tree, target, src)
 			}
 		}
 		def json = new JsonBuilder(tree)
@@ -128,12 +135,11 @@ class GenerateWordLinks {
 	def addedNodes = [] as Set
 	def addedChildren = [] as Set
 
-	void addPairToMap (Map m, String source, String target){
+	private void addPairToMap (Map m, String source, String target){
 
 		assert source !=target
 
 		m.each {
-
 			if (it.value in List ){
 				it.value.each{
 					assert it in Map
@@ -143,7 +149,8 @@ class GenerateWordLinks {
 			}else{
 
 				if (it.value == target){
-					println "*******************************************skipping it.value ${it.value} source $source target $target"
+					println "skipping it.value ${it.value} source $source target $target"
+					//addPairToMap(it, target, source)
 				} else {
 
 					if (it.value ==source) {
@@ -153,8 +160,7 @@ class GenerateWordLinks {
 								m.children << ["name": target]
 							}
 						}else{
-							//do not create a new node if one already exists
-
+							//New Node - but do not create a new node if one already exists
 							if (addedNodes.add( it.value) && ! addedNodes.contains(target) && ! addedChildren.contains(target)  ){
 
 								println "adding " + it.value + " to added $addedNodes"
@@ -163,7 +169,7 @@ class GenerateWordLinks {
 								m  << ["name": it.value, "children": [["name" : target]]]
 							}
 							else {
-								println "PPPPPPPPPPPPPPPPPPPalready added so skipping source $source target $target it.value " + it.value
+								println "already added so skipping source $source target $target it.value " + it.value
 							}
 						}
 					}
@@ -173,9 +179,8 @@ class GenerateWordLinks {
 	}
 
 
-
 	//powers for 0.9
-	def powers = [
+	def final powers = [
 		0 : 1,
 		1 : 0.9,
 		2 : 0.81,
@@ -193,26 +198,28 @@ class GenerateWordLinks {
 		14: 0.228767925
 	]
 
-	def getCooc(List w0Positions, List w1Positions) {
+	private def getCooc(List w0Positions, List w1Positions) {
 		final int MAX_DISTANCE = 10;
 		def coocVal =
 				[w0Positions, w1Positions].combinations().collect
 				{ a, b -> Math.abs(a - b) - 1 }
 				.findAll { it <= MAX_DISTANCE }
-				.sum { powers[it] //    Math.pow(0.9, it)
+				.sum {
+				//	powers[it]
+					Math.pow(0.5, it)
 				}
 
 		return coocVal ?: 0.0;
 	}
 
 	static main(args) {
-		def y = new GenerateWordLinks()
+		def gwl = new GenerateWordLinks()
 		//y.getWordPairs("""houses tonight  houses tonight content contents contents housed house houses housed zoo zoo2""")
 		//println y.getWordPairs("abc def")
-		y.getWordPairs(mAli)
+		gwl.getJSONnetwork(mAli)
 	}
 
-	def static mAli =
+	def final static mAli =
 	'''
 “I am America. I am the part you won’t recognise. But get used to me – black, confident, cocky; my name, not yours; my religion, not yours; my goals, my own. Get used to me.”
 Muhammad Ali: the man behind the icon Read moreMuhammad Ali loved the sound of his own voice, and so did everyone else. His words were predictably impossible to top on Saturday, as America mourned the loss of a colossus not only in the boxing ring but the arenas of politics, religion and popular culture.

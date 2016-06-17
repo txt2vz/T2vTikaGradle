@@ -72,13 +72,13 @@ public class UploadServlet extends HttpServlet {
 		System.out.println("in  upload doppost datta " + s );
 		
 
-		GenerateWordLinks gt = new GenerateWordLinks();
-		String json = gt.getJSONnetwork(s);
+		//GenerateWordLinksD gt = new GenerateWordLinksD();
+		//String json = gt.getJSONnetwork(s);
 		//System.out.println(set.toString());
 		
-		response.getWriter().println( json);
+		//response.getWriter().println( json);
 		
-		//response.getWriter().println(s);
+		response.getWriter().println(s);
 	}
 
 	// private static String getFilename(Part part) {

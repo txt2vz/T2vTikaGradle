@@ -112,28 +112,31 @@ hr {
 							name="type" value="oneLevel" checked="true"> One Level
 					</form>
 					<br> Network Type:
+
 					<form id="networkType">
-						<input type="radio" id="radial" name="nt" value="radial">
-						Radial(tree)<br /> <input type="radio" id="dendro" name="nt"
-							value="dendro"> Dendrogram <br /> <input type="radio"
-							id="forceTree" name="nt" value="forceTree" checked="true">
-						Force (Tree) <br /> <input type="radio" id="forceNet" name="nt"
-							value="forceNet"> Force (Network)
+						<input type="radio" id="radial" name="nt" value="radial"
+							checked="true"> Radial (tree)<br /> <input type="radio"
+							id="forceTree" name="nt" value="forceTree"> Force (Tree)
+						<br /> <input type="radio" id="forceNet" name="nt"
+							value="forceNet"> Force (Network) <br />
+						<input type="radio" id="dendro" name="nt" value="dendro">
+						Dendrogram (tree)<br />
+
 					</form>
 				</div>
 
 
 				<div class="col-md-2 controls">
-				
+
 					<label for="maxWords">Max Words</label>
-					<output for="maxWords" id="maxWords2">50</output>
+					<output for="maxWords" id="maxWords2">100</output>
 					<input type="range" min="1" max="1000" value="50" id="maxWords"
 						step="1" oninput="outputMaxWords(value)"> <br> <br>
-						
+
 					<label for="maxLinks">Max Word Pairs: </label>
-					<output for="maxLinks" id="maxLinks2">30</output>
+					<output for="maxLinks" id="maxLinks2">100</output>
 					<input type="range" min="1" max="1000" value="30" id="maxLinks"
-						step="1" oninput="outputMaxLinks(value)"> <br> <br>		
+						step="1" oninput="outputMaxLinks(value)"> <br> <br>
 
 					<label for="cooc">Power Value: </label>
 					<output for="cooc" id="cooc2">0.5</output>

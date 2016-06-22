@@ -1,4 +1,4 @@
- package processText
+package processText
 
 import processText.PorterStemmer;
 import processText.StopSet;

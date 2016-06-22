@@ -13,18 +13,8 @@
 		<url-pattern>*.groovy</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>UploadServlet</servlet-name>
-		<servlet-class>processText.UploadServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UploadServlet</servlet-name>
-		<url-pattern>uploadservice</url-pattern>
-	</servlet-mapping>
-
-
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-
+	
 </web-app>

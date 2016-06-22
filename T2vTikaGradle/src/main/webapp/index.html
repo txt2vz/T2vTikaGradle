@@ -1,331 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">  
-
-<head>
-<!-- Bootstrap CSS Toolkit styles -->
-
+<meta charset="utf-8">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<!--  	href="http://blueimp.github.com/cdn/css/bootstrap.min.css"> -->
-<!-- Generic page styles -->
-<link rel="stylesheet" href="css/style.css">
-<!-- Bootstrap styles for responsive website layout, supporting different screen sizes -->
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
 <link
-	href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Bootstrap CSS fixes for IE6 -->
-<!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
-<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-<link rel="stylesheet" href="css/jquery.fileupload-ui.css">
 
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>t2vd3</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<script src="js/vendor/jquery.ui.widget.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="js/jquery.iframe-transport.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="js/jquery.fileupload.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script type="text/javascript"
-	src="http://mbostock.github.com/d3/d3.js?2.9.2"></script>
 
 <style type="text/css">
+.node {
+	cursor: pointer;
+}
+
+.overlay {
+	background-color: #FFF;
+}
+
+.node circle {
+	fill: blueviolet;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
+
+.node text {
+	font-size: 14px;
+	font-family: sans-serif;
+}
+
 .link {
-	stroke: #666; //
-	stroke-width: 2px;
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 1.5px;
+}
+
+line.link {
+	fill: none;
+	stroke: #9ecae1;
+	stroke-width: 1.5px;
+}
+
+.controls {
+	font-size: 70%;
+}
+
+output {
+	font-size: 90%;
+	display: inline;
+}
+
+hr {
+	background-color: blue;
+	height: 1px;
+	border: 0;
+}
+
+.well {
+	background-color: #e6fff2;
 }
 </style>
-</head>
+<title>txt2vz</title>
+
 <body>
-	<div class="container">
-		<em style="font-size: 48px"><b> <span
-				style="color: blueviolet">t</span><span style="color: cyan">xt</span><span
-				style="color: magenta">2</span><span style="color: cyan">vz</span></b></em>:
-		<span style="font-family: arial; font-size: 17px;">Visualize
-			your Documents.</span>
+	<div class="container  col-md-12">
+		<a
+			href="https://plus.google.com/u/0/b/117816592489907408686/117816592489907408686/about"
+			target="_blank"> <em style="font-size: 28px"><b> <span
+					style="color: blueviolet">t</span><span style="color: cyan">xt</span><span
+					style="color: magenta">2</span><span style="color: cyan">vz</span></b></em>
+		</a>
+		<div class="well col-md-12">
+			<div class="row">
+				<div class="col-md-4">
 
-		<nav class="navbar navbar-inverse" role="navigation">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-
-				<a class="navbar-brand" href="index.html">Viz</a> <a
-					class="navbar-brand" href="info.html">Information</a>
-			</div>
-		</nav>
-
-
-		<div id='content' class='row-fluid'>
-			<div class='span10 main active'>
-
-				<script>
-					function drawLinks(jsonlinks) {
-						//alert("in drawlinks " + jsonlinks);
-						d3.select("svg").remove();
-						var linksobj;
-						
-						if (jsonlinks==null || typeof jsonlinks =='object'){
-							linksobj = jsonlinks; 
-						}
-						else linksobj = JSON.parse(jsonlinks);
-
-					//	var linksobj = jsonlinks; // JSON.parse(jsonlinks);
-						var links = linksobj.links;
-
-						var w = 960, h = 500;
-						var nodes = {};
-
-						var svg = d3.select(".main").append("svg").attr("width",
-								w).attr("height", h);
-
-						// Compute the distinct nodes from the links.
-						links.forEach(function(link) {
-							var sc = link.source;
-							var tg = link.target;
-							link.source = nodes[sc] || (nodes[sc] = {
-								name : sc,
-								rank : link.rank,
-								numberLinks:0
-							});
-							link.target = nodes[tg] || (nodes[tg] = {
-								name : tg,
-								rank : link.rank,
-								numberLinks:0
-							});
-
-							//count number of links for each node
-							nodes[sc].numberLinks++;
-							nodes[tg].numberLinks++;
-							});
-
-						var force = d3.layout.force().gravity(.05)
-										.charge(-200).size([ w, h ]);
-
-						
-						force.nodes(d3.values(nodes)).links(links)
-								.linkDistance(function(d) {
-									if (d.rank<7) return 80;
-									else if (d.rank <11) return 100;
-									else return 170;
-								}).start();
-
-						var link = svg.selectAll(".link").data(links).enter()
-								.append("line").attr("stroke-width",
-										function(d) {
-											if (d.rank <4)
-												return 1;
-											else
-												return 0.1;
-										}).attr("class", "link");
-
-						var node = svg.selectAll(".node")
-								.data(d3.values(nodes)).enter().append("g")
-								.attr("class", "node").call(force.drag);
-						
-						node.append("rect").attr("width", function(d){
-							return 120;
-						}).attr("height" , function (d){
-							return 20;
-						}).attr("ry" , 8)
-						.attr("rx" , 8)
-						.attr("y", -15)
-						.attr("x", -5)
-						
-	
-						.attr("opacity", function (d) {
-							if (d.rank < 1)
-								return 1;
-							else
-								if (d.rank<3 ||d.numberLinks>2)
-								return 0.7
-								else return 0.4;
-						})
-						.attr("fill", function(d) {
-					
-					
-				    	if (d.rank < 2)
-							return "magenta";//"#66FFFF";							
-						else
-							if (d.numberLinks >2) 
-								return     "blueviolet";//"blue"; 
-				    	               // "blueviolet";
-							else
-							return  "cyan";//"yellowgreen"
-					});
-
-						node.append("text").attr("font-size", function(d) {
-							if (d.rank < 1)		
-								return 20;
-							else
-								if (d.rank < 4 ||d.numberLinks>2)
-								return 14;
-								else return 10;
-						})
-						//.attr("x", 1)
-					   //  .attr("y", 15)
-						.text(function(d) {
-							return d.name
-						});
-
-						force.on("tick", function() {
-							link.attr("x1", function(d) {
-								return d.source.x;
-							}).attr("y1", function(d) {
-								return d.source.y;
-							}).attr("x2", function(d) {
-								return d.target.x;
-							}).attr("y2", function(d) {
-								return d.target.y;
-							});
-
-							node.attr("transform", function(d) {
-								return "translate(" + d.x + "," + d.y + ")";
-							});
-						});
-					}
-				</script>
-				<script>
-	//	var jl = "{"links":[{"source":"laurie", "target":"hirsch, "rank":0}]}";
-	var jl ={};
-	jl.links =[{'source':'txt2vz', 'target' : 'by', 'rank':7},
-	           {'source':'laurie', 'target' : 'by', 'rank':8},
-	           {'source':'txt2vz', 'target' : 'document', 'rank':0},	         
-	           {'source':'analysis', 'target' : 'visualization', 'rank':2},
-	           {'source':'summary', 'target' : 'visualization', 'rank':3},
-	           {'source':'concept', 'target' : 'visualization', 'rank':4},
-	           {'source':'document', 'target' : 'mind', 'rank':7},
-	           {'source':'mind', 'target' : 'map', 'rank':7},
-	           {'source':'document', 'target' : 'visualization', 'rank':1},
-	           {'source':'laurie', 'target' : 'hirsch', 'rank':2}	
-	
-	];
-		drawLinks(jl);
-		</script>
-			</div>
-
-			<div class='span2 sidebar'>
-				<h3>Select Source</h3>
-				Select a file to visualize (e.g. pdf, docx, xml, ppt, txt, html
-				etc.) You can also drag and drop your file here.
-				<!-- The fileinput-button span is used to style the file input field as button -->
-				<span class="btn btn-success fileinput-button"> <i
-					class="icon-plus icon-white"></i> <span>Select File</span> <!-- The file input field used as target for the file upload widget -->
-					<input id="fileupload" type="file" name="files[]" multiple>
-				</span> <br> <br />
-				<!-- The global progress bar -->
-				<div id="progress"
-					class="progress progress-success progress-striped">
-					<div class="bar"></div>
+					<textarea id="txta1" COLS="40" ROWS="6"
+						placeholder="Type or paste text here"></textarea>
+					<br> <input type="button" value="viz text"
+						onclick="textIn(txta1.value)">
 				</div>
-				<!-- The container for the uploaded files -->
-				<div id="files"></div>
-				<br>
-				<p>Type in a Twitter query or Hashtag:</p>
+				<div class="col-md-4">
+					Enter Twitter query or hashtag: <input type="text" name="twitQ"
+						id="twitQ" size=40 value="word cloud"> <input
+						type="button" value="viz Twitter"
+						onclick="textIn(twitQ.value, true )"> <br /> <br />
+					Enter URL: <input type="text" id="url"
+						value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
 
-				<input type="text" name="twitQ" id="twitQ" size=40
-					value="word cloud"> <input type="button"
-					value="viz Twitter" onclick="lookupTwit(twitQ.value)"> <br />
-				<br /> Type in a URL <input type="text" id="url2"
-					value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
+					<button onclick="textIn(url.value)">viz URL</button>
+					<br />
 
-				<button onclick="lookupURL(url2.value)">viz URL</button>
+					<div id="modal">
+						<img id="loader" src="images/ajax-loaderBig.gif" />
+						<div id="fade"></div>
+					</div>
+				</div>
 
-				<br /> <br />
-				<p>Paste in text</p>
+				<div class="col-md-2">
+							
+					<br> Network Type:
+					<form id="networkType">
+						<input type="radio" id="radial" name="nt" value="radial"
+							checked="true"> Radial (tree)<br /> <input type="radio"
+							id="forceTree" name="nt" value="forceTree"> Force (tree)
+						<br /> <input type="radio" id="forceNet" name="nt"
+							value="forceNet"> Force (network) <br />
+						<input type="radio" id="dendro" name="nt" value="dendro">
+						Dendrogram (tree)<br />
 
-				<textarea id="txta1" COLS="30" ROWS="5"
-					placeholder="Type or paste text here"> </textarea>
-				<input type="button" value="viz text" onclick="pasted(txta1.value)">
+					</form>
+				</div>
 
-				<br></br>
+				<div class="col-md-2 controls">
+					<label for="maxWords">Max Words</label>
+					<output for="maxWords" id="maxWords2">100</output>
+					<input type="range" min="1" max="1000" value="50" id="maxWords"
+						step="1" oninput="outputMaxWords(value)"> <br> <br>
 
-				<script>
-					/*jslint unparam: true *//*global window, $ */
-					$(function() {
-						//'use strict';
-						$('#fileupload').fileupload(
-								{
-									url : "uploadservice",//url,
-									dataType : 'text',
-									done : function(e, data) {
-										//	alert('data is ' + data.result.files);
+					<label for="maxLinks">Max Word Pairs: </label>
+					<output for="maxLinks" id="maxLinks2">100</output>
+					<input type="range" min="1" max="1000" value="30" id="maxLinks"
+						step="1" oninput="outputMaxLinks(value)"> <br> <br>
 
-										//   $.each(data.result.files, function (index, file) {
-										// alert ('f ' + data.result.files.name);
-										// $('<p/>').text(file.name).appendTo('#files');
-										//    });
-										//alert ("tyring");
-										drawLinks(data.result);
-									},
-									progressall : function(e, data) {
-										var progress = parseInt(data.loaded
-												/ data.total * 100, 10);
-										$('#progress .bar').css('width',
-												progress + '%');
-									}
-								});
-					});
-				</script>
-
-				<script>
-					function pasted(s) {
-						s= s.replace(/%/g, '');
-						
-						$.ajax({
-							type : "POST",
-							url : "pastedText.groovy",
-							cache : false,
-							data : "s=" + s,
-							success : function(data, textStatus, jqXHR) {
-								drawLinks(data);
-							},
-						
-						});
-					}
-				</script>
-
-				<script type="text/javascript">
-			
-					function lookupURL(url) {
-						$.ajax({
-							type : "POST",
-							url : "url.groovy",
-							cache : false,
-							data : "u=" + url,
-							success : function(data, textStatus, jqXHR) {
-								drawLinks(data);
-							},
-							error : function(jqXHR, textStatus, errorThrown) {
-								alert("error " + textStatus);
-							}
-						});
-					}
-				</script>
-
-				<script type="text/javascript">
-					function lookupTwit(twq) {
-
-						$.ajax({
-							type : "POST",
-							//url : "twitservice",
-							url : "twitter.groovy",
-							cache : false,
-							data : "q=" + twq,
-							success : function(data, textStatus, jqXHR) {
-								//alert("in twit jq " + data);
-								drawLinks(data);
-							},
-							error : function(jqXHR, textStatus, errorThrown) {
-								alert("error " + textStatus);
-							}
-						});
-					}
-				</script>
-				
+					<label for="cooc">Power Value: </label>
+					<output for="cooc" id="cooc2">0.5</output>
+					<input type="range" min="0.05" max="0.95" value="0.5" id="cooc"
+						step="0.05" oninput="outputCooc(value)">
+				</div>
 			</div>
 		</div>
+		<div class="row col-md-12">
 
+			<div id="tree-container"></div>
+			<div class="main"></div>
+		</div>
+
+		<div class="navbar navbar-fixed-bottom"
+			style="font-family: arial; font-size: 10px; background-color: white;">
+			By Laurie Hirsch Info: <a
+				href="https://plus.google.com/u/0/b/117816592489907408686/117816592489907408686/about"
+				target="_blank">txt2vz</a>
+		</div>
 	</div>
+
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="js/drawForce.js"></script>
+	<script src="js/drawDendrogram.js"></script>
+	<script src="js/drawLinks.js"></script>
+	<script src="js/drawRadial.js"></script>
+
+	<script src="js/colorbrewer.js"></script>
+	<script src="js/frontPage.js"></script>
+
+	<script>
+		var cooc = 0.5;
+		var maxLinks = 30;
+		var maxWords = 50;
+		var oneLevel = true;
+		var networkType = "forceTree";
+		var jsonDataTemp;
+
+		frontPage();
+
+		jQuery('input').click(function() {
+			jQuery(this).select();
+		});
+
+		function openModal() {
+			document.getElementById('modal').style.display = 'block';
+			document.getElementById('fade').style.display = 'block';
+		}
+
+		function closeModal() {
+			document.getElementById('modal').style.display = 'none';
+			document.getElementById('fade').style.display = 'none';
+		}
+
+		function outputCooc(coocIn) {
+			document.querySelector('#cooc2').value = coocIn;
+			cooc = document.getElementById("cooc").value;
+			console.log("cooc set: " + cooc);
+		}
+
+		function outputMaxLinks(maxLinksIn) {
+			document.querySelector('#maxLinks2').value = maxLinksIn;
+			maxLinks = document.getElementById("maxLinks").value;
+			//	console.log("maxLinks set: " + maxLinks);
+		}
+
+		function outputMaxWords(maxWordsIn) {
+			document.querySelector('#maxWords2').value = maxWordsIn;
+			maxWords = document.getElementById("maxWords").value;
+			//console.log("maxWords set: " + maxWords);
+		};
+
+		jQuery('#txta1').keypress(function(event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode == '13') {
+				console.log('You pressed a "enter" key in textbox');
+				textIn(txta1.value);
+			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
+			event.stopPropagation();
+		});
+
+		//Bind keypress event to textbox
+		jQuery('#twitQ').keypress(function(event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode == '13') {
+				console.log('You pressed a "enter" key in Twitter Q');
+				textIn(twitQ.value, true);
+			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
+			event.stopPropagation();
+		});
+
+		//Bind keypress event to textbox
+		jQuery('#url').keypress(function(event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode == '13') {
+				console.log('You pressed a "enter" key in url2');
+				textIn(url.value);
+			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
+			event.stopPropagation();
+		});
+
+		// can't swap because JSON is different
+		//	jQuery(document).ready(function () {
+		//		jQuery('input[type=radio][name=nt]').change (function() {
+		//			if (jsonDataTemp) {
+		//				console.log ("change network type");
+		//				setNetworkType();
+		//				draw(jsonDataTemp);
+		//			}				
+		//		});
+		//	});
+	</script>
+
+	<script>
+		function draw(jsonData) {
+			jsonDataTemp = jsonData;
+
+			console.log("data back from draw " + jsonData);
+			oneLevel = jQuery('input[name=type]:checked', '#expanded').val() == "oneLevel";
+
+			if (networkType == "forceNet")
+				drawLinks(jsonData);
+
+			else if (networkType == "forceTree")
+				drawForce(jsonData);
+			else if (networkType == "radial")
+				drawRadial(jsonData)
+			else
+				drawDendrogram;
+		};
+
+		function setNetworkType() {
+			networkType = jQuery('input[name=nt]:checked', '#networkType')
+					.val();
+		};
+
+		function textIn(s, tw) {
+			s = s.replace(/%/g, '');
+			setNetworkType();
+			openModal();
+
+			jQuery.ajax({
+				type : "POST",
+				url : "textIn.groovy",
+				cache : false,
+				data : {
+					s : s,
+					tw : tw,
+					networkType : networkType,
+					cooc : cooc,
+					maxLinks : maxLinks,
+					maxWords : maxWords
+				},
+				success : function(jsonData, textStatus, jqXHR) {
+
+					console.log("jsonData back from draw " + jsonData);
+					draw(jsonData);
+					closeModal();
+				},
+
+			});
+		};
+
+	//	$(function() {
+			//'use strict';
+		//	$('#fileupload').fileupload({
+		//		url : "uploadservice",//url,
+		//		dataType : 'text',
+		//		done : function(e, data) {
+		//			console.log()
+		//			//alert("data.result " + data.result);
+			//		textIn(data.result);
+		//			//drawDendrogram(data.result);
+		//		}
+		//	});
+	//	});
+
+		closeModal();
+	</script>
 </body>
 </html>

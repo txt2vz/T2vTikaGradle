@@ -105,12 +105,7 @@ hr {
 
 
 				<div class="col-md-2">
-					Show Tree:
-					<form id="expanded">
-						<input type="radio" id="full" name="type" value="full">
-						Fully Expanded <br /> <input type="radio" id="oneLevel"
-							name="type" value="oneLevel" checked="true"> One Level
-					</form>
+							
 					<br> Network Type:
 
 					<form id="networkType">
@@ -319,19 +314,19 @@ hr {
 			});
 		};
 
-		$(function() {
+	//	$(function() {
 			//'use strict';
-			$('#fileupload').fileupload({
-				url : "uploadservice",//url,
-				dataType : 'text',
-				done : function(e, data) {
-					console.log()
-					//alert("data.result " + data.result);
-					textIn(data.result);
-					//drawDendrogram(data.result);
-				}
-			});
-		});
+		//	$('#fileupload').fileupload({
+		//		url : "uploadservice",//url,
+		//		dataType : 'text',
+		//		done : function(e, data) {
+		//			console.log()
+		//			//alert("data.result " + data.result);
+			//		textIn(data.result);
+		//			//drawDendrogram(data.result);
+		//		}
+		//	});
+	//	});
 
 		closeModal();
 	</script>

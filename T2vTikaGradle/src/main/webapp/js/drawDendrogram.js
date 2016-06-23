@@ -1,6 +1,6 @@
 function drawDendrogram(json) {
 
-	// $("#tree-container").height(); //$(document).height();
+	// jQuery("#tree-container").height(); //jQuery(document).height();
 	console.log("in drawDendrongram");
 	d3.select("svg").remove();
 	// var jsonFile = e.target.result;
@@ -19,8 +19,8 @@ function drawDendrogram(json) {
 	var root;
 
 	// size of the diagram
-	var viewerWidth = $(document).width();
-	var viewerHeight = $(document).height();
+	var viewerWidth = jQuery(document).width();
+	var viewerHeight = jQuery(document).height();
 
 	var tree = d3.layout.tree().size([ viewerHeight, viewerWidth ]);
 
@@ -295,7 +295,7 @@ function drawDendrogram(json) {
 	zoomListener.scale(scale);
 	zoomListener.translate([ x, y ]);
 
-	var oneLevel = $('input[name=type]:checked', '#expanded').val() == "oneLevel";
+	var oneLevel = jQuery('input[name=type]:checked', '#expanded').val() == "oneLevel";
 
 	console.log("oneLevel: " + oneLevel);
 

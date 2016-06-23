@@ -196,7 +196,7 @@ hr {
 		jQuery('#txta1').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
-				console.log('You pressed a "enter" key in textbox');
+				//console.log('You pressed a "enter" key in textbox');
 				textIn(txta1.value);
 			}
 			//Stop the event from propogation to other handlers
@@ -209,7 +209,7 @@ hr {
 		jQuery('#twitQ').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
-				console.log('You pressed a "enter" key in Twitter Q');
+				//console.log('You pressed a "enter" key in Twitter Q');
 				textIn(twitQ.value, true);
 			}
 			//Stop the event from propogation to other handlers
@@ -222,7 +222,7 @@ hr {
 		jQuery('#url').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
-				console.log('You pressed a "enter" key in url2');
+				//console.log('You pressed a "enter" key in url2');
 				textIn(url.value);
 			}
 			//Stop the event from propogation to other handlers
@@ -244,11 +244,11 @@ hr {
 	</script>
 
 	<script>
-		function draw(jsonData) {
+		function draw(jsonData) { 
 			jsonDataTemp = jsonData;
 
-			console.log("data back from draw " + jsonData);
-			oneLevel = jQuery('input[name=type]:checked', '#expanded').val() == "oneLevel";
+			//console.log("data back from draw " + jsonData);
+			//oneLevel = jQuery('input[name=type]:checked', '#expanded').val() == "oneLevel";
 
 			if (networkType == "forceNet")
 				drawLinks(jsonData);
@@ -258,7 +258,7 @@ hr {
 			else if (networkType == "radial")
 				drawRadial(jsonData)
 			else
-				drawDendrogram;
+				drawDendrogram(jsonData);
 		};
 
 		function setNetworkType() {
@@ -285,11 +285,10 @@ hr {
 				},
 				success : function(jsonData, textStatus, jqXHR) {
 
-					console.log("jsonData back from draw " + jsonData);
+					//console.log("jsonData back from draw " + jsonData);
 					draw(jsonData);
 					closeModal();
 				},
-
 			});
 		};
 

@@ -1,9 +1,6 @@
 function drawDendrogram(json) {
 
-	// $("#tree-container").height(); //$(document).height();
-	console.log("in drawDendrongram");
 	d3.select("svg").remove();
-	// var jsonFile = e.target.result;
 	var treeData = JSON.parse(json);
 
 	var fillColour = "mediumslateblue";
@@ -149,8 +146,7 @@ function drawDendrogram(json) {
 				});
 		}
 		oneLevel = true;
-
-		console.log("in update");
+		
 		// Compute the new height, function counts total children of root node
 		// and sets tree height accordingly.
 		// This prevents the layout looking squashed when new nodes are made
@@ -295,7 +291,8 @@ function drawDendrogram(json) {
 	zoomListener.scale(scale);
 	zoomListener.translate([ x, y ]);
 
-	var oneLevel = $('input[name=type]:checked', '#expanded').val() == "oneLevel";
+	//var oneLevel = $('input[name=type]:checked', '#expanded').val() == "oneLevel";
+	var oneLevel = false
 
 	console.log("oneLevel: " + oneLevel);
 

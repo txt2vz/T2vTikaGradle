@@ -12,6 +12,7 @@ repositories {
 	mavenCentral()
 }
 
+//Java 8 doesn't work on openshift
 dependencies {
 	compileJava.options.fork = true
 	compileJava.options.forkOptions.executable = /C:\Program Files\Java\jdk1.7.0_55/
@@ -30,8 +31,7 @@ dependencies {
 	compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
 	
 	// http://mvnrepository.com/artifact/com.google.guava/guava
-	//compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
-	
+	//compile group: 'com.google.guava', name: 'guava', version: '11.0.2'	
 
 	compile 'org.twitter4j:twitter4j-core:4.0.4'
 	providedCompile'javax.servlet:javax.servlet-api:3.1.0'

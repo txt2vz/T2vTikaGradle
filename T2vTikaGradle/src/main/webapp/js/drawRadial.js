@@ -26,7 +26,7 @@ function drawRadial(json) {
 	
 	function update () {
 	// if (error) throw error;
-		console.log("in updat radial root.name " + root.name);
+		//console.log("in updat radial root.name " + root.name);
 
 	  var nodes = tree.nodes(root),
 	      links = tree.links(nodes);

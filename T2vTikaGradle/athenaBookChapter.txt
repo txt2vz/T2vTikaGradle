@@ -143,7 +143,7 @@ contexts from the data. The SAS Content Categorization Studio is responsible for
 the categorization (or provision of labels) to documents, the extraction of concepts
 or in other words, the identification of particular characteristics in a document and
 the identification of relationships between concepts (contextual extraction).
-Categorisation is the process of analysing a document’s content and applying a
+Categorisation is the process of analysing a documentï¿½s content and applying a
 category to it based on a set of pre-defined conditions. In ATHENA, documents
 can belong to a number of categories if there is match between the content of the
 documents and the rules from different categories. The SAS Content Categorization
@@ -183,7 +183,7 @@ social media data because of the wide variety of terms and spellings that refer 
 the same term. The reduction of these terms to a single term ensures that there is
 consistency in the analysis of the terminology. Contextual extraction is similar to
 concept extraction, however the data extracted in this case are more complex in
-nature and they are referred to as ‘facts’. Also, contextual extraction can make use
+nature and they are referred to as ï¿½factsï¿½. Also, contextual extraction can make use
 of concepts within the rules it uses.
 The process terminates with the output of XML versions of the scanned documents,
 containing metadata of the original documents as distinct XML elements, as
@@ -195,10 +195,10 @@ visualization techniques [4] of Formal Concept Analysis (FCA). For an overview o
 FCA see section 1.6.
 1 Analysing Crowd-Sourced Information and Social Media for Crisis Management 7
 1.4 Assessing credibility and priority
-According to the Oxford dictionary, credibility is “the quality of being trusted
-and believed in, the quality of being convincing or believable”. One objective of
-Athena project is to develop tools and techniques “to automatically assess information/
-information sources for credibility and maliciousness” and in order to achieve
+According to the Oxford dictionary, credibility is ï¿½the quality of being trusted
+and believed in, the quality of being convincing or believableï¿½. One objective of
+Athena project is to develop tools and techniques ï¿½to automatically assess information/
+information sources for credibility and maliciousnessï¿½ and in order to achieve
 this and further prioritize the information received, we are focused on two targets:
 detecting credible and in the same time providing situational awareness information,
 in the context of a possible emergency crisis.
@@ -290,7 +290,7 @@ Thousands evacuated as Colorado wildfire nears
 http://t.co/1jtGu6Bb
 Related and informative
 RT @**********: Hey Colorado Springs radio stations -
-Let’s go ahead and remove Adele’s Set Fire to the Rain
+Letï¿½s go ahead and remove Adeleï¿½s Set Fire to the Rain
 from our rotation #JustSa ...
 Not related
 RT @***********: Lord, protect those in the path of the
@@ -364,10 +364,10 @@ expressed in the Colorado wildfire Twitter dataset. We have used SAS Sentiment
 Analysis Studio to capture the polarity of the text: whether the expressed opinion
 in a tweet, a particular sentence of the tweet, or an entity feature/aspect is positive,
 negative, or neutral. The following polarity classes were implemented:
- positive – a positive sentiment has been expressed
- negative – a negative sentiment has been expressed
- neutral – a neutral sentiment has been expressed
- unclassified – the sentiment expressed does not fall in any of the defined polarity
+ positive ï¿½ a positive sentiment has been expressed
+ negative ï¿½ a negative sentiment has been expressed
+ neutral ï¿½ a neutral sentiment has been expressed
+ unclassified ï¿½ the sentiment expressed does not fall in any of the defined polarity
 classes
 The polarity of each document is measured at both the overall document level
 (i.e. expressed towards the Colorado wildfires crisis event), and, when applicable,
@@ -387,7 +387,7 @@ of ATHENA, which allow for the definition of semantic relationships between
 12 S. Andrews, T. Day, K. Domdouzis, L. Hirsch, R. Lefticaru, C. Orphanides
 concepts (i.e. entities). The left column displays some of the concepts which are
 usually identified in crisis management situations, such as citizens, first responders
-and law enforcement agencies. Each entity can have it’s own set of rules, allowing
+and law enforcement agencies. Each entity can have itï¿½s own set of rules, allowing
 for contextual identification of sentiment; the fourth rule, for example, looks for
 instances of the fire service concept combined with words expressing positive sentiment,
 in the same sentence, having a maximum distance of five words between the
@@ -436,7 +436,7 @@ In ATHENA, the information sources are the objects and the structured data extra
 from them are their attributes. Thus an object might have attributes such as a
 location, a crisis category, a sentiment, a date and time and so on. If the aggregated
 information is to be presented to the decision maker via a map of the crisis area, we
-can define a ‘crisis concept’ as being a formal concept that contains at least one location
+can define a ï¿½crisis conceptï¿½ as being a formal concept that contains at least one location
 and a least one crisis category. Thus FCA has been implemented in ATHENA
 to compute crisis concepts from the structured data obtained from the social media
 and citizen reporter information sources.
@@ -444,13 +444,13 @@ The Colorado wildfire Twitter data provides an example of this and Figure 1.7
 shows part of a formal concept tree generated from the structured data obtained
 from the Tweets. Each node is a formal concept and the node on the left represent
 the set of 642 Tweets that have a location and a crisis category in their text. Each
-of the numbered nodes on the right is a ‘crisis concept’ containing a location and
+of the numbered nodes on the right is a ï¿½crisis conceptï¿½ containing a location and
 a crisis category. The label above each node contains the attributes of the concept
 and the label below gives the number of Tweets sharing those attributes. If a node is
-filled in, it means there are further specialised ‘sub-concepts’ that can be explored -
+filled in, it means there are further specialised ï¿½sub-conceptsï¿½ that can be explored -
 containing fewer Tweets but a greater number of shared attributes.
 Figure 1.8 shows on of the filled in nodes expanded to reveal its sub-concepts.
-Each sub-concept inherits the attributes of the ‘parent’ concept but has additional
+Each sub-concept inherits the attributes of the ï¿½parentï¿½ concept but has additional
 attributes potentially containing more valuable information about the crisis. In the
 14 S. Andrews, T. Day, K. Domdouzis, L. Hirsch, R. Lefticaru, C. Orphanides
 example, there is a group of Tweets that mention a shooting attack and two groups
@@ -461,7 +461,7 @@ The analyst/decision maker also has the ability to trace back Tweets of interest
 the original source. The crisis concepts, instead of displaying the number of Tweets
 can display the source URLs. The analyst can select a URL to link back to the
 original text.
-Thus, the application of FCA to aggregate source information into ‘crisis concepts’
+Thus, the application of FCA to aggregate source information into ï¿½crisis conceptsï¿½
 facilitates the decision maker by reducing information overload and focusing
 on crisis information along with its location. In ATHENA the usability and interpretation
 is further improved by displaying crisis concepts in a map-based interface
@@ -542,7 +542,7 @@ Information Aggregation
 Due to the potentially steady, though sizable streams of information entering a system
 like Athena from uncontrolled sources, it makes sense and may even been vital
 in many and all situations that information is properly aggregated. Athena does this
-on-the-fly using a formal concept analysis algorithm. Though it doesn’t stop at the
+on-the-fly using a formal concept analysis algorithm. Though it doesnï¿½t stop at the
 actual aggregation process as operators need to be able to choose between accessing
 individual reports or aggregated reports to ensure information is not missed or even
 to validate the aggregation process. The reduction in information flow here can be
@@ -564,7 +564,7 @@ car fire.
 Such aggregation, or even association between multiple incoming reports with
 various information is difficult without considering the time information came in.
 During a crisis, it is more important for operators to see time in a relative way, such
-as “4 minutes ago”. Using time in this way and allowing operators to find data based
+as ï¿½4 minutes agoï¿½. Using time in this way and allowing operators to find data based
 on the last number of seconds, minutes or hours can increase the speed in which they
 filter through information.
 18 S. Andrews, T. Day, K. Domdouzis, L. Hirsch, R. Lefticaru, C. Orphanides
@@ -616,17 +616,17 @@ sources, additional steps may have to be taken to counter information overload,
 such as setting a minimum number of information sources per crisis concept. Better
 resolution of location names would also increase the level of aggregation and
 improve the quality of the crisis concepts. In the Colorado Tweets, there were nine
-‘versions’ of Colorado Springs: Help Colorado Springs, Fame Colorado Springs,
+ï¿½versionsï¿½ of Colorado Springs: Help Colorado Springs, Fame Colorado Springs,
 Colorado Springs, COLORADO SPRINGS, Davis Colorado Springs, Northwestern
 Colorado Springs, Technician Colorado Springs, The Colorado Springs and Hey
 Colorado Springs. Further work is required in improve the location recognition and
 extraction software to resolve identical locations and exclude erroneous locations.
 The Colorado Tweets example also illustrated the abillity of a crisis taxonomy
-in providing a useful ’drill-down’ feature for the analyst. Figure 1.8 shows crisis
+in providing a useful ï¿½drill-downï¿½ feature for the analyst. Figure 1.8 shows crisis
 concepts with increasingly specialised crisis categories, from TYPES OF CRISIS
 to NATURAL DISASTER to ND-WILDFIRE. The higher levels of aggregation are
 achieved at the more general levels in the taxonomy, but the analyst is able to then
-‘drill-down’ into ever more specialised sub-concepts that have fewer information
+ï¿½drill-downï¿½ into ever more specialised sub-concepts that have fewer information
 sources but potentially more specific information about a specific crisis event. The
 most specialised concept may contain only a few information sources and at this
 point the analyst is able to trace back to the original sources to examine their text.
@@ -635,7 +635,7 @@ The sentiment analysis component identified sentiment correctly in more than
 benefit from further sentiment specialisation. For example, in some instances, the
 sentiment analysis component identified negative sentiments expressed towards citizens.
 Upon manual inspection, these tweets were actually expressing emotions such
-as sadness, anger and frustration towards the crisis event – this shows how further
+as sadness, anger and frustration towards the crisis event ï¿½ this shows how further
 insight could be gained by extending the sentiment model to incorporate specialized
 sentiments such as anger and frustration, in the analysis, rather than only using the
 positive/negative scale.
@@ -657,63 +657,3 @@ capabilities which can be used in multiple ways to support the overall goals of 
 Athena project.
 Acknowledgements This work was funded through the FP7 European project ATHENA (FP7-
 SEC-2012.6.1-30).
-References
-1. de Albuquerque, J.P., Herfort, B., Brenning, A., Zipf, A.: A geographic approach for combining
-social media and authoritative data towards identifying useful information for disaster
-management. International Journal of Geographical Information Science 29(4), 667–689
-(2015)
-2. Alexander, D.E.: Social media in disaster risk reduction and crisis management. Science and
-Engineering Ethics 20(3), 717–733 (2014)
-3. Andrews, S., Orphanides, C.: Knowledge discovery through creating formal contexts. International
-Journal of Space-Based and Situated Computing 2(2), 123–138 (2012)
-4. Andrews, S., Orphanides, C.: Discovering knowledge in data using formal concept analysis.
-International Journal of Distributed Systems and Technologies 4(2), 31–50 (2013)
-5. de Assis, L.F.G., Herfort, B., Steiger, E., Horita, F.E.A., de Albuquerque, J.P.: Geographical
-prioritization of social network messages in near real-time using sensor data streams: an application
-to floods. In: XVI Brazilian Symposium on GeoInformatics, Campos do Jord˜ao, S˜ao
-Paulo, Brazil, November 29 - December 2, 2015., pp. 26–37 (2015)
-6. Castillo, C., Mendoza, M., Poblete, B.: Information credibility on Twitter. In: Proceedings
-of the 20th International Conference on World Wide Web, WWW 2011, Hyderabad, India,
-March 28 - April 1, 2011, pp. 675–684 (2011)
-7. Cresci, S., Tesconi, M., Cimino, A., DellOrletta, F.: A linguistically-driven approach to crossevent
-damage assessment of natural disasters from social media messages. In: Proceedings of
-the 24th international conference companion on World Wide Web. ACM (2015)
-8. Domdouzis, K., Andrews, S., Gibson, H., Akhgar, B., Hirsch, L.: Service-oriented design of
-a command and control intelligence dashboard for crisis management. In: Proceedings of
-the 7th IEEE/ACM International Conference on Utility and Cloud Computing, UCC 2014,
-London, United Kingdom, December 8-11, 2014, pp. 702–707 (2014)
-9. Dubey, R., Luo, Z., Xu, M., Wamba, S.F.: Developing an integration framework for crowdsourcing
-and internet of things with applications for disaster response. In: 2015 IEEE International
-Conference on Data Science and Data Intensive Systems, pp. 520–524 (2015)
-10. Ganter, B., Wille, R.: Formal concept analysis - mathematical foundations. Springer (1999)
-11. Gao, H., Barbier, G., Goolsby, R.: Harnessing the crowdsourcing power of social media for
-disaster relief. IEEE Intelligent Systems 26(3), 10–14 (2011)
-12. Gupta, A., Kumaraguru, P., Castillo, C., Meier, P.: TweetCred: A real-time web-based system
-for assessing credibility of content on Twitter. CoRR abs/1405.5490 (2014)
-13. Imran, M., Castillo, C., Diaz, F., Vieweg, S.: Processing social media messages in mass emergency:
-A survey. ACM Comput. Surv. 47(4), 67 (2015)
-14. Narvaez, R.W.: Crowdsourcing for disaster preparedness: Realities and opportunities. Master’s
-thesis, Graduate Institute of International and Development Studies, Geneva, Geneva
-(2012)
-1 Analysing Crowd-Sourced Information and Social Media for Crisis Management 21
-15. O’Donovan, J., Kang, B., Meyer, G., H¨ollerer, T., Adali, S.: Credibility in context: An analysis
-of feature distributions in Twitter. In: 2012 International Conference on Privacy, Security,
-Risk and Trust, PASSAT 2012, and 2012 International Confernece on Social Computing, SocialCom
-2012, Amsterdam, Netherlands, September 3-5, 2012, pp. 293–301 (2012)
-16. Oh, O., Agrawal, M., Rao, H.R.: Community intelligence and social media services: A rumor
-theoretic analysis of tweets during social crises. MIS Quarterly 37(2), 407–426 (2013)
-17. Olteanu, A., Vieweg, S., Castillo, C.: What to expect when the unexpected happens: Social media
-communications across crises. In: Proceedings of the 18th ACM Conference on Computer
-Supported Cooperative Work & Social Computing, CSCW 2015, Vancouver, BC, Canada,
-March 14 - 18, 2015, pp. 994–1009 (2015)
-18. Sievers, J.A.: Embracing crowdsourcing: A strategy for state and local governments approaching
-“whole community” emergency planning. State and Local Government Review 47(1),
-57–67 (2015)
-19. Verma, S., Vieweg, S., Corvey, W.J., Palen, L., Martin, J.H., Palmer, M., Schram, A., Anderson,
-K.M.: Natural language processing to the rescue? extracting ”situational awareness”
-tweets during mass emergency. In: Proceedings of the Fifth International Conference on Weblogs
-and Social Media, Barcelona, Catalonia, Spain, July 17-21, 2011 (2011)
-20. Witten, I.H., Frank, E., Hall, M.A.: Data Mining: Practical Machine Learning Tools and Techniques,
-3rd edn. Morgan Kaufmann Publishers Inc., San Francisco, CA, USA (2011)
-21. Yin, J., Lampert, A., Cameron, M.A., Robinson, B., Power, R.: Using social media to enhance
-emergency situation awareness. IEEE Intelligent Systems 27(6), 52–59 (2012)

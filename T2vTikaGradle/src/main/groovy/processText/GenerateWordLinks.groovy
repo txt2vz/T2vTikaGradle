@@ -26,7 +26,7 @@ class GenerateWordLinks {
 
 	String getJSONnetwork(String s) {
 
-		//new File ('athenaBookChapter.txt').text
+		//s=new File ('athenaBookChapter.txt').text
 		s = s ?: "empty text"
 
 		def words = s.replaceAll(/\W/, "  ").toLowerCase().tokenize().minus(StopSet.stopSet)
@@ -83,7 +83,11 @@ class GenerateWordLinks {
 
 		//wordPairList = wordPairList.sort { -it.cooc }
 		wordPairList = wordPairList.sort { -it.sortVal }
-		println "wordPairList take 5: " + wordPairList.take(5)
+		println "wordPairList take 5: " + wordPairList.take(30)
+		
+	//	wordPairList.each{
+	//		println " ${it.word0} ${it.word1} ${it.cooc}  ${it.sortVal}   "
+	//	}
 
 		wordPairList = wordPairList.take(maxWordPairs)
 		//def json = getJSONgraph(wordPairList, stemInfo)
@@ -119,6 +123,7 @@ class GenerateWordLinks {
 	}
 
 	def internalNodes = [] as Set
+	def anyNode = [] as Set
 	private String getJSONtree( List wl, Map stemMap){
 		def tree= [:]
 
@@ -132,6 +137,8 @@ class GenerateWordLinks {
 						[name: word0, cooc: it.cooc,
 							children: [[name: word1]]]
 				internalNodes.add(word0)
+				anyNode.add(word0)
+				anyNode.add(word1)
 			}
 			else {
 				addPairToMap(tree, word0, word1, it.cooc)
@@ -155,17 +162,22 @@ class GenerateWordLinks {
 				}
 			}else{
 
-				if (it.value == w0) {
+				if (it.value == w0  &&  anyNode.add(w1))  {
 
 					//the node has children.  Check the other word is not also an internal node
-					if (m.children  && ! internalNodes.contains(w1)){
+					if (m.children  && ! internalNodes.contains(w1) ){
 
 						m.children << ["name": w1]
+					//	print "p "
+					//	internalNodes.add( it.value)
 
 					}else{
 						//do not create a new node if one already exists
-						if ( internalNodes.add( it.value) && ! internalNodes.contains(w1) ){
-
+					//if ( internalNodes.add( it.value) && ! internalNodes.contains(w1) ){
+						//if ( internalNodes.contains( it.value) && ! internalNodes.contains(w1) ){
+							if ( ! internalNodes.contains(w1) ){
+					
+							internalNodes.add( it.value)
 							m  << ["name": it.value, , "cooc": cooc, "children": [["name" : w1]]]
 						}
 					}

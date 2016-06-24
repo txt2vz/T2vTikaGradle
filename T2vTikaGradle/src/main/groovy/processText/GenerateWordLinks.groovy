@@ -38,7 +38,7 @@ class GenerateWordLinks {
 		def stemInfo = [:] //stemmed word is key and value is a map of a particular word form and its frequency
 		def wordToPositionsMap = [:] //stemmed word is key and value is a list of positions where any of the words occur
 
-		words.findAll { it.size() > 1 }
+		words.findAll { it.size() > 2 }
 		.eachWithIndex { it, indexWordPosition ->
 
 			def stemmedWord = stemmer.stem(it)
@@ -84,10 +84,10 @@ class GenerateWordLinks {
 		//wordPairList = wordPairList.sort { -it.cooc }
 		wordPairList = wordPairList.sort { -it.sortVal }
 		println "wordPairList take 5: " + wordPairList.take(30)
-		
-	//	wordPairList.each{
-	//		println " ${it.word0} ${it.word1} ${it.cooc}  ${it.sortVal}   "
-	//	}
+
+		//	wordPairList.each{
+		//		println " ${it.word0} ${it.word1} ${it.cooc}  ${it.sortVal}   "
+		//	}
 
 		wordPairList = wordPairList.take(maxWordPairs)
 		//def json = getJSONgraph(wordPairList, stemInfo)
@@ -168,16 +168,16 @@ class GenerateWordLinks {
 					if (m.children  && ! internalNodes.contains(w1) ){
 
 						m.children << ["name": w1]
-					//	print "p "
-					//	internalNodes.add( it.value)
+						//	print "p "
+						//	internalNodes.add( it.value)
 
 					}else{
 						//do not create a new node if one already exists
-					//if ( internalNodes.add( it.value) && ! internalNodes.contains(w1) ){
+						//if ( internalNodes.add( it.value) && ! internalNodes.contains(w1) ){
 						//if ( internalNodes.contains( it.value) && ! internalNodes.contains(w1) ){
-							if ( ! internalNodes.contains(w1) ){
-					
-							internalNodes.add( it.value)
+						//	if ( ! internalNodes.contains(w1) ){
+
+						if (internalNodes.add( it.value)) {
 							m  << ["name": it.value, , "cooc": cooc, "children": [["name" : w1]]]
 						}
 					}
@@ -193,7 +193,7 @@ class GenerateWordLinks {
 				{ a, b -> Math.abs(a - b) - 1 }
 				.findAll { it <= MAX_DISTANCE }
 				.sum {
-					//lookup table should be faster  
+					//lookup table should be faster
 					//powers[it]
 					//Math.pow(0.5, it)
 					Math.pow(coocIn, it)
@@ -223,7 +223,7 @@ class GenerateWordLinks {
 	static main(args) {
 		def gwl = new GenerateWordLinks()
 		//y.getWordPairs("""houses tonight  houses tonight content contents contents housed house houses housed zoo zoo2""")
-		
+
 		gwl.getJSONnetwork(mAli)
 	}
 

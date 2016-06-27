@@ -123,7 +123,7 @@ class GenerateWordLinks {
 	}
 
 	def internalNodes = [] as Set
-	def anyNode = [] as Set
+	def allNodes = [] as Set
 	private String getJSONtree( List wl, Map stemMap){
 		def tree= [:]
 
@@ -137,8 +137,8 @@ class GenerateWordLinks {
 						[name: word0, cooc: it.cooc,
 							children: [[name: word1]]]
 				internalNodes.add(word0)
-				anyNode.add(word0)
-				anyNode.add(word1)
+				allNodes.add(word0)
+				allNodes.add(word1)
 			}
 			else {
 				addPairToMap(tree, word0, word1, it.cooc)
@@ -162,21 +162,16 @@ class GenerateWordLinks {
 				}
 			}else{
 
-				if (it.value == w0  &&  anyNode.add(w1))  {
+				if (it.value == w0  &&  allNodes.add(w1))  {
 
 					//the node has children.  Check the other word is not also an internal node
 					if (m.children  && ! internalNodes.contains(w1) ){
 
 						m.children << ["name": w1]
-						//	print "p "
-						//	internalNodes.add( it.value)
 
 					}else{
-						//do not create a new node if one already exists
-						//if ( internalNodes.add( it.value) && ! internalNodes.contains(w1) ){
-						//if ( internalNodes.contains( it.value) && ! internalNodes.contains(w1) ){
-						//	if ( ! internalNodes.contains(w1) ){
 
+						//do not create a new internal node if one already exists
 						if (internalNodes.add( it.value)) {
 							m  << ["name": it.value, , "cooc": cooc, "children": [["name" : w1]]]
 						}

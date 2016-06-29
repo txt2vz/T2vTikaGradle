@@ -14,8 +14,8 @@ repositories {
 
 //Java 8 doesn't work on openshift
 dependencies {
-	compileJava.options.fork = true
-	compileJava.options.forkOptions.executable = /C:\Program Files\Java\jdk1.7.0_55/
+	//compileJava.options.fork = true
+	//compileJava.options.forkOptions.executable = /C:\Program Files\Java\jdk1.7.0_55/
 	
 	//compile 'org.codehaus.groovy:groovy:2.4.3'
    //compile 'org.codehaus.groovy:groovy-all:2.3.7' 
@@ -35,6 +35,8 @@ dependencies {
 
 	compile 'org.twitter4j:twitter4j-core:4.0.4'
 	providedCompile'javax.servlet:javax.servlet-api:3.1.0'
+	
+	compile fileTree(dir: 'libs', include: ['*.jar'])
 	
 //	providedCompile 'javax.servlet:servlet-api:2.5'
 	//runtime 'javax.servlet:jstl:1.1.2'

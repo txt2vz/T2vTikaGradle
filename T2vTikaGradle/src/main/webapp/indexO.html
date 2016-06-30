@@ -6,6 +6,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	rel="stylesheet">
 
+
 <style type="text/css">
 .node {
 	cursor: pointer;
@@ -47,18 +48,14 @@ output {
 	display: inline;
 }
 
+hr {
+	background-color: blue;
+	height: 1px;
+	border: 0;
+}
+
 .well {
 	background-color: #e6fff2;
-}
-
-.button {
-    background-color: white;
-    color: blueviolet;
-    border: 2px solid cyan;//#008CBA;
-}
-
-#maxLinks {
-	background: #BABABA;
 }
 </style>
 <title>txt2vz</title>
@@ -73,32 +70,23 @@ output {
 		</a>
 		<div class="well col-md-12">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-4">
 
-					<textarea id="txta1" COLS="37" ROWS="6"
+					<textarea id="txta1" COLS="40" ROWS="6"
 						placeholder="Type or paste text here"></textarea>
 					<br> <input type="button" value="viz text"
 						onclick="textIn(txta1.value)">
 				</div>
-				<div class="col-md-5">
-					<div>
-						<div>Enter Twitter query or hashtag:</div>
-						<input type="text" name="twitQ" id="twitQ" size=40
-							value="word cloud"> <input type="button"
-							value="viz Twitter" onclick="textIn(twitQ.value, true )">
-					</div>
-
-					<div>Enter URL:</div>
-					<input type="text" id="url"
+				<div class="col-md-4">
+					Enter Twitter query or hashtag: <input type="text" name="twitQ"
+						id="twitQ" size=40 value="word cloud"> <input
+						type="button" value="viz Twitter"
+						onclick="textIn(twitQ.value, true )"> <br /> <br />
+					Enter URL: <input type="text" id="url"
 						value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
 
 					<button onclick="textIn(url.value)">viz URL</button>
-					<br> <br>
-					<div class="btn btn-success fileinput-button">
-						<i class="icon-plus icon-white"></i>
-						<div>Select File</div>
-						<input id="fileupload" type="file" name="files[]" multiple>
-					</div>
+					<br />
 
 					<div id="modal">
 						<img id="loader" src="images/ajax-loaderBig.gif" />
@@ -107,15 +95,15 @@ output {
 				</div>
 
 				<div class="col-md-2">
-
+							
 					<br> Network Type:
 					<form id="networkType">
 						<input type="radio" id="radial" name="nt" value="radial"
 							checked="true"> Radial (tree)<br /> <input type="radio"
 							id="forceTree" name="nt" value="forceTree"> Force (tree)
 						<br /> <input type="radio" id="forceNet" name="nt"
-							value="forceNet"> Force (network) <br /> <input
-							type="radio" id="dendro" name="nt" value="dendro">
+							value="forceNet"> Force (network) <br />
+						<input type="radio" id="dendro" name="nt" value="dendro">
 						Dendrogram (tree)<br />
 
 					</form>
@@ -163,11 +151,6 @@ output {
 	<script src="js/colorbrewer.js"></script>
 	<script src="js/frontPage.js"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/vendor/jquery.ui.widget.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.12.5/js/jquery.fileupload.min.js"></script>
-
 	<script>
 		var cooc = 0.5;
 		var maxLinks = 30;
@@ -195,7 +178,7 @@ output {
 		function outputCooc(coocIn) {
 			document.querySelector('#cooc2').value = coocIn;
 			cooc = document.getElementById("cooc").value;
-			//console.log("cooc set: " + cooc);
+			console.log("cooc set: " + cooc);
 		}
 
 		function outputMaxLinks(maxLinksIn) {
@@ -210,25 +193,15 @@ output {
 			//console.log("maxWords set: " + maxWords);
 		};
 
-		$(function() {
-			$('#fileupload').fileupload({
-				url : "uploadservice",
-				dataType : 'text',
-				done : function(e, data) {
-					if (data.result.startsWith("#error"))
-						alert("error " + data.result);
-					else
-						textIn(data.result);
-				}
-			});
-		});
-
 		jQuery('#txta1').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
 				//console.log('You pressed a "enter" key in textbox');
 				textIn(txta1.value);
 			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
 			event.stopPropagation();
 		});
 
@@ -239,6 +212,9 @@ output {
 				//console.log('You pressed a "enter" key in Twitter Q');
 				textIn(twitQ.value, true);
 			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
 			event.stopPropagation();
 		});
 
@@ -246,8 +222,12 @@ output {
 		jQuery('#url').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
+				//console.log('You pressed a "enter" key in url2');
 				textIn(url.value);
 			}
+			//Stop the event from propogation to other handlers
+			//If this line will be removed, then keypress event handler attached
+			//at document level will also be triggered
 			event.stopPropagation();
 		});
 
@@ -264,7 +244,7 @@ output {
 	</script>
 
 	<script>
-		function draw(jsonData) {
+		function draw(jsonData) { 
 			jsonDataTemp = jsonData;
 
 			//console.log("data back from draw " + jsonData);
@@ -311,6 +291,20 @@ output {
 				},
 			});
 		};
+
+	//	$(function() {
+			//'use strict';
+		//	$('#fileupload').fileupload({
+		//		url : "uploadservice",//url,
+		//		dataType : 'text',
+		//		done : function(e, data) {
+		//			console.log()
+		//			//alert("data.result " + data.result);
+			//		textIn(data.result);
+		//			//drawDendrogram(data.result);
+		//		}
+		//	});
+	//	});
 
 		closeModal();
 	</script>

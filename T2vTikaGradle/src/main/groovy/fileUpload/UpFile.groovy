@@ -55,24 +55,15 @@ public class UpFile extends HttpServlet {
 			// TODO Auto-generated catch block
 			println "e1 in tike $e1"
 			e1.printStackTrace();
-		//} catch (TikaException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
+			s = "#error processing file"
+		} catch (TikaException e) {
+			s = "#error tika error processing file"
+			e.printStackTrace();
 		}
 		
-		response.getWriter().println( s); 
-		
-		//System.out.println("in  upload doppost datta " + s );
-		
+		response.getWriter().println( s); 		
 
 	//	GetJSONpairs gt = new GetJSONpairs();
-	//	String set = gt.getWordPairs(s);
-		//System.out.println(set.toString());
-		
-	//	response.getWriter().println( set);
-		
-		//response.getWriter().println(s); 
-	}
 
+	}
 }
-//}

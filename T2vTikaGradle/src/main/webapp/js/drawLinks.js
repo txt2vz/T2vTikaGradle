@@ -14,7 +14,7 @@ function drawLinks(jsonlinks) {
 
 	var w = 700,
 		h = 800;
-	var svg = d3.select(".main").append("svg").attr("width", w).attr("height",
+	var svg = d3.select("#vis").append("svg").attr("width", w).attr("height",
 		h);
 
 	// Compute the distinct nodes from the links.

@@ -73,7 +73,7 @@ function drawDendrogram(json) {
 			zoom);
 
 	// define the baseSvg, attaching a class for styling and the zoomListener
-	var baseSvg = d3.select("#tree-container").append("svg").attr("width",
+	var baseSvg = d3.select("#vis").append("svg").attr("width",
 			viewerWidth).attr("height", viewerHeight).attr("class", "overlay")
 			.call(zoomListener);
 

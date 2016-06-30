@@ -1,4 +1,4 @@
-function drawRadial(json) {
+function drawRadialzc(json) {
 	d3.select("svg").remove();
 	var diameter = 800;
 

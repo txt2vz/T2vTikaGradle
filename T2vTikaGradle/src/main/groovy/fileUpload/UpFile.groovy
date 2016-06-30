@@ -1,6 +1,5 @@
 package fileUpload;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -24,17 +23,15 @@ import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 
 public class UpFile extends HttpServlet {
-        private static final long serialVersionUID = 1L;
-       // private final String UPLOAD_DIRECTORY = "C:/data";
+	private static final long serialVersionUID = 1L;
+	// private final String UPLOAD_DIRECTORY = "C:/data";
 
-        protected void doPost(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
              HttpServletResponse response) throws ServletException, IOException {
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-        
-      println "in upload G"
 
-        // process only if it is multipart content
-  	System.out.println("in  upload doppost ");
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+
+  	    System.out.println("in  upload doppost ");
 		ServletFileUpload upload = new ServletFileUpload();
 		FileItemIterator iter;
 	
@@ -48,11 +45,9 @@ public class UpFile extends HttpServlet {
 
 			Tika t = new Tika();			
 			s = t.parseToString(i);
-			
-			//println "tika s $s"
 
 		} catch (FileUploadException e1) {
-			// TODO Auto-generated catch block
+		
 			println "e1 in tike $e1"
 			e1.printStackTrace();
 			s = "#error processing file"

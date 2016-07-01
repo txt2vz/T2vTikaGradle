@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-	rel="stylesheet">
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <style type="text/css">
-
 .overlay {
 	background-color: #FFF;
 }
@@ -71,6 +68,7 @@ html {
 	stroke-width: 1.5px;
 }
 </style>
+</head>
 <title>txt2vz</title>
 
 <body>
@@ -81,20 +79,23 @@ html {
 					style="color: blueviolet">t</span><span style="color: cyan">xt</span><span
 					style="color: magenta">2</span><span style="color: cyan">vz</span></b></em>
 		</a>
-		<div class="well col-md-12">
+		<button type="button" class="btn btn-info" data-toggle="collapse"
+			data-target="#control2">Show/Hide controls/selections</button>
+		<div id="control2" class="collapse in well">
+
 			<div class="row">
 				<div class="col-md-3">
 
 					<textarea id="txta1" COLS="37" ROWS="6"
 						placeholder="Type or paste text here"></textarea>
-					<br> <input type="button" value="viz text"
+					<br> <input type="button" value="viz text" class="btn btn-primary"
 						onclick="textIn(txta1.value)">
 				</div>
 				<div class="col-md-5">
 					<div>
 						<div>Enter Twitter query or hashtag:</div>
 						<input type="text" name="twitQ" id="twitQ" size=40
-							value="word cloud"> <input type="button"
+							value="word cloud"> <input type="button" class="btn btn-primary"
 							value="viz Twitter" onclick="textIn(twitQ.value, true )">
 					</div>
 
@@ -102,9 +103,9 @@ html {
 					<input type="text" id="url"
 						value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
 
-					<button onclick="textIn(url.value)">viz URL</button>
+					<button onclick="textIn(url.value)" class="btn btn-primary">viz URL</button>
 					<br> <br>
-					<div class="btn btn-success fileinput-button">
+					<div class="btn btn-info fileinput-button">
 						<i class="icon-plus icon-white"></i>
 						<div>Select File</div>
 						<input id="fileupload" type="file" name="files[]" multiple>
@@ -117,7 +118,6 @@ html {
 				</div>
 
 				<div class="col-md-2">
-
 					<br> Network Type:
 					<form id="networkType">
 						<input type="radio" id="radial" name="nt" value="radial"
@@ -148,6 +148,7 @@ html {
 						step="0.05" oninput="outputCooc(value)">
 				</div>
 			</div>
+
 		</div>
 		<div class="row col-md-12">
 			<div class="main"></div>
@@ -161,8 +162,9 @@ html {
 				target="_blank">txt2vz</a>
 		</div>
 	</div>
-
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="js/drawForce.js"></script>
 	<script src="js/drawDendrogram.js"></script>
@@ -257,6 +259,8 @@ html {
 	</script>
 
 	<script>
+		//http://bl.ocks.org/bansaghi/f3cbb5e7b759b6a58aff
+		//radial zoomable collapsible
 		function radialZC(jsonText) {
 
 			var json = JSON.parse(jsonText);
@@ -278,7 +282,8 @@ html {
 				//.sortable("_ASC_") 	
 
 				tree.draw(json);
-			};
+			}
+			;
 		};
 
 		function draw(jsonData) {
@@ -349,11 +354,5 @@ html {
 
 		closeModal();
 	</script>
-
-	<script>
-		//http://bl.ocks.org/bansaghi/f3cbb5e7b759b6a58aff
-		//radial zoomable collapsible
-	</script>
-
 </body>
 </html>

@@ -15,12 +15,7 @@ class StopSet {
 		
 	
 	def static stopSet= [
-		"tness",
-		"text",
-		"title",
-		"a",
-		"it",
-		"of",
+		"title", "a", 	"it", 	"of",
 	    	  "is", "to", "t.co",
 	    	   "figure", "title", "fig", "fig.","chapter",  "table",//: extra words
 	            "able", "about", "above", "according", "accordingly",
@@ -77,6 +72,5 @@ class StopSet {
 	            "http", "https", "www", "com", "org", "i","ii", "iii", "iv", "v", "vi", "vii", "viii", "ing",
 	            "doesn", "don", "didn", "isn", /*like i've*/"ve", "s", "t", "ll"/*like i'll*/, "wouldn", 
 				"couldn", "shouldn", "ain", "mustn", "haven", "hasn",
-				"1","2","3","4","5","6","7","8","9","0"] as Set           
-
+				"1","2","3","4","5","6","7","8","9","0"] as Set        
 }

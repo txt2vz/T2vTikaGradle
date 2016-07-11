@@ -1,34 +1,30 @@
 package processText
 
-import processText.PorterStemmer;
-import processText.StopSet;
-import java.util.Map
-
 import groovy.json.*
 import groovy.transform.*
 
 class GenerateWordLinks {
 
-	def highFreqWords = 80
-	def maxWordPairs = 40
-	def coocIn = 0.5
-	String networkType = "tree"
+	private def highFreqWords = 80
+	private def maxWordPairs = 40
+	private def coocIn = 0.5
+	private String networkType = "tree"
 
-	String  getJSONnetwork(String s, String netType, Float cin, int maxL, int hfq) {
+	GenerateWordLinks(String netType, Float cin, int maxL, int hfq) {
 		networkType = netType
 		this.coocIn = cin
 		this.maxWordPairs=maxL
 		this.highFreqWords=hfq
 
 		println "**GenerateWordLinks constructor - cocoIn: $coocIn maxWordPairs: $maxWordPairs highFreqWords: $highFreqWords "
-		getJSONnetwork (s)
+		//getJSONnetwork (s)
 	}
 
 	String getJSONnetwork(String s) {
 
 		//s=new File ('athenaBookChapter.txt').text
 		s = s ?: "empty text"
-
+ 
 		def words = s.replaceAll(/\W/, "  ").toLowerCase().tokenize().minus(StopSet.stopSet)
 		// smallStopSet2);//  stopSet)
 
@@ -123,8 +119,8 @@ class GenerateWordLinks {
 		return json
 	}
 
-	def internalNodes = [] as Set
-	def allNodes = [] as Set
+	private def internalNodes = [] as Set
+	private def allNodes = [] as Set
 	private String getJSONtree( List wl, Map stemMap){
 		def tree= [:]
 

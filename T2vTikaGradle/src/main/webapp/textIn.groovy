@@ -40,14 +40,14 @@ if ( params.get("tw")){
 	text = twitterText
 } else
 
-// should use apache commons URLValidator
-if (text.startsWith("http") && text.size() < 256) {
-	def url = text.toURL()
-	text = Jsoup.parse(url.getText()).text()
-	
-	//Tika tika = new Tika();
-	//text = tika.parseToString(url)
-}
+	// should use apache commons URLValidator
+	if (text.startsWith("http") && text.size() < 256) {
+		def url = text.toURL()
+		text = Jsoup.parse(url.getText()).text()
+
+		//Tika tika = new Tika();
+		//text = tika.parseToString(url)
+	}
 
 def networkType = params.get("networkType")
 float cooc = params.get("cooc").toFloat()
@@ -56,17 +56,17 @@ int maxWords = params.get("maxWords").toInteger()
 
 System.out.println "***TEXTIN: networkType is $networkType cooc: $cooc maxLinks $maxLinks maxWords $maxWords"
 
-def gwl = new GenerateWordLinks()
-   
 def nt = (networkType == "forceNet") ? "graph" : "tree"
+def gwl = new GenerateWordLinks(nt, cooc, maxLinks, maxWords)
 
-def	json = gwl.getJSONnetwork(text, nt, cooc, maxLinks, maxWords) 
+def	json = gwl.getJSONnetwork(text)
 print json
 
 private Twitter getTwitterAuth(){
 
 	ConfigurationBuilder cb = new ConfigurationBuilder();
-	//keys;
+	cb.setDebugEnabled(true)
+	//keys
 	TwitterFactory tf = new TwitterFactory(cb.build());
 	Twitter twitter = tf.getInstance();
 

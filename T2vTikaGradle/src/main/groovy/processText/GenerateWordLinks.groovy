@@ -216,7 +216,9 @@ class GenerateWordLinks {
 		def gwl = new GenerateWordLinks()
 		//y.getWordPairs("""houses tonight  houses tonight content contents contents housed house houses housed zoo zoo2""")
 
-		gwl.getJSONnetwork(mAli)
+		//gwl.getJSONnetwork(mAli)
+		def dd = gwl.getJSONnetwork("zzza ttttk ffffe")
+		println "dd $dd"
 	}
 
 	def final static mAli =

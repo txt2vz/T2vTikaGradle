@@ -57,7 +57,7 @@ int maxWords = params.get("maxWords").toInteger()
 System.out.println "***TEXTIN: networkType is $networkType cooc: $cooc maxLinks $maxLinks maxWords $maxWords"
 
 def nt = (networkType == "forceNet") ? "graph" : "tree"
-def gwl = new GenerateWordLinks(nt, cooc, maxLinks, maxWords)
+def gwl = new GenerateWordLinks(nt, cooc, maxLinks, maxWords) 
 
 def	json = gwl.getJSONnetwork(text)
 print json

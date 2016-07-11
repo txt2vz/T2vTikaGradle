@@ -33,7 +33,7 @@ class GenerateWordLinks {
 		def stemmer = new PorterStemmer()
 		def stemInfo = [:] //stemmed word is key and value is a map of a particular word form and its frequency
 		def wordToPositionsMap = [:] //stemmed word is key and value is a list of positions where any of the words occur
-
+ 
 		//min word size 1 or 2?
 		words.findAll { it.size() > 2 }
 		.eachWithIndex { it, indexWordPosition ->

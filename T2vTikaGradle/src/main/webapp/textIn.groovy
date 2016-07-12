@@ -58,7 +58,6 @@ System.out.println "***TEXTIN: networkType is $networkType cooc: $cooc maxLinks 
 
 def nt = (networkType == "forceNet") ? "graph" : "tree"
 def gwl = new GenerateWordLinks(nt, cooc, maxLinks, maxWords) 
-
 def	json = gwl.getJSONnetwork(text)
 print json
 
@@ -66,7 +65,10 @@ private Twitter getTwitterAuth(){
 
 	ConfigurationBuilder cb = new ConfigurationBuilder();
 	cb.setDebugEnabled(true)
-	//keys
+			.setOAuthConsumerKey("u59ay8TtPUn5p9VTHxdFg")
+			.setOAuthConsumerSecret("LOkS2Vl9KTWXH5VMuwhb9RfIcXBXzkvyzzwD0HQtr14")
+			.setOAuthAccessToken("560297710-4UmsMLOILUgIkLx6V5mdH1lbvG8ew8xvQm5YgBhY")
+			.setOAuthAccessTokenSecret("mlwDtpbx9bUKTTk4wpBYVdUagGmBX6bzAYJbktoNM");
 	TwitterFactory tf = new TwitterFactory(cb.build());
 	Twitter twitter = tf.getInstance();
 

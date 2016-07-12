@@ -19,6 +19,9 @@ class GenerateWordLinks {
 		println "**GenerateWordLinks constructor - cocoIn: $coocIn maxWordPairs: $maxWordPairs highFreqWords: $highFreqWords "
 		//getJSONnetwork (s)
 	}
+	
+	GenerateWordLinks() {		
+	}
 
 	String getJSONnetwork(String s) {
 

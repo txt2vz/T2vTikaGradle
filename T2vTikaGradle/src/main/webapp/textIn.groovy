@@ -6,7 +6,6 @@ import org.jsoup.Jsoup
 import processText.*
 import twitter4j.*
 import twitter4j.conf.*;
-
 import twitter4j.Twitter;
 
 @BaseScript TwitterKeys keys

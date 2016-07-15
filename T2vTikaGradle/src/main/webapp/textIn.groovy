@@ -1,12 +1,12 @@
 //import org.apache.tika.Tika;
 //import org.apache.tika.exception.TikaException;
 import groovy.transform.BaseScript
+
 import org.jsoup.Jsoup
 
 import processText.*
 import twitter4j.*
-import twitter4j.conf.*;
-import twitter4j.Twitter;
+import twitter4j.conf.*
 
 @BaseScript TwitterKeys keys
 

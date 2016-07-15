@@ -1,3 +1,4 @@
+import processText.GenerateWordLinks
 import spock.lang.*
 
 class GetPairsSpec extends spock.lang.Specification {

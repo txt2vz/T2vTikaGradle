@@ -1,13 +1,15 @@
 //import org.apache.tika.Tika;
 //import org.apache.tika.exception.TikaException;
-
+import groovy.transform.BaseScript
 import org.jsoup.Jsoup
 
 import processText.*
 import twitter4j.*
 import twitter4j.conf.*;
 
-import twitter4j.Twitter;;
+import twitter4j.Twitter;
+
+@BaseScript TwitterKeys keys
 
 String text = params.get("s")
 
@@ -24,7 +26,7 @@ if ( params.get("tw")){
 	def twCount =0;
 	def twitterText= ""
 
-	for   (i in 0..4){//(;;) {
+	for   (i in 0..10){//(;;) {
 		result = twitter.search(query);
 		def tweets = result.getTweets()
 
@@ -65,7 +67,10 @@ private Twitter getTwitterAuth(){
 
 	ConfigurationBuilder cb = new ConfigurationBuilder();
 	cb.setDebugEnabled(true)
-	//keys
+			.setOAuthConsumerKey(consumerKey)
+			.setOAuthConsumerSecret(consumerSecret)
+			.setOAuthAccessToken(accessToken)
+			.setOAuthAccessTokenSecret(accessTokenSecret);
 	TwitterFactory tf = new TwitterFactory(cb.build());
 	Twitter twitter = tf.getInstance();
 

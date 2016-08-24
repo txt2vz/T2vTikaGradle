@@ -1,11 +1,14 @@
-apply plugin: 'java'
+//apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'jetty'
-apply plugin: 'eclipse-wtp'
+//apply plugin: 'jetty'
+//apply plugin: 'eclipse-wtp'
 apply plugin: 'groovy'
 
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+//for redhat
+//sourceCompatibility = '1.7'
+//targetCompatibility = '1.7'
 
 repositories {
 	mavenCentral()
@@ -19,7 +22,7 @@ dependencies {
 	//compile 'org.codehaus.groovy:groovy:2.4.3'
    //compile 'org.codehaus.groovy:groovy-all:2.3.7' 
 	//compile 'org.codehaus.groovy:groovy-all:2.3.6'
-	compile 'org.codehaus.groovy:groovy-all:2.4.4'
+	compile 'org.codehaus.groovy:groovy-all:2.4.7'
 	testCompile 'junit:junit:4.11'
 	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 	
@@ -49,6 +52,7 @@ task doPack(type: War, dependsOn: []) {
 	archiveName "ROOT.war"
 }
 
-httpPort = 8087
-stopPort = 9080
-stopKey = "stopKey"
+gretty {
+	contextPath="/"
+	//httpPort = 8081
+}

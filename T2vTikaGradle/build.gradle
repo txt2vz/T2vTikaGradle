@@ -23,7 +23,7 @@ dependencies {
    //compile 'org.codehaus.groovy:groovy-all:2.3.7' 
 	//compile 'org.codehaus.groovy:groovy-all:2.3.6'
 	compile 'org.codehaus.groovy:groovy-all:2.4.7'
-	testCompile 'junit:junit:4.11'
+//	testCompile 'junit:junit:4.11'
 	testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 	
 	//compile 'org.apache.tika:tika-app:1.13'

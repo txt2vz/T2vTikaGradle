@@ -1,7 +1,4 @@
-//apply plugin: 'java'
 apply plugin: 'war'
-//apply plugin: 'jetty'
-//apply plugin: 'eclipse-wtp'
 apply plugin: 'groovy'
 
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
@@ -44,8 +41,7 @@ dependencies {
 	
 //	providedCompile 'javax.servlet:servlet-api:2.5' 
 	//runtime 'javax.servlet:jstl:1.1.2'
-	runtime 'javax.servlet.jsp.jstl:jstl-api:1.2'
-	
+	runtime 'javax.servlet.jsp.jstl:jstl-api:1.2'	
 	
 }
 task doPack(type: War, dependsOn: []) {

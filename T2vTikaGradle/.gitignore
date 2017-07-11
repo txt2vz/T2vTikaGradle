@@ -6,6 +6,11 @@
 .project
 .settings
 gradle.prefs
-statDump
-results
 TwitterKeys.groovy
+*.class
+
+#Gradle
+.gradletasknamecache
+.gradle/
+build/
+bin/

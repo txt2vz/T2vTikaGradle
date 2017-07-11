@@ -1,4 +1,4 @@
- package processText
+package processText
 
 import groovy.json.*
 import groovy.transform.*
@@ -21,6 +21,10 @@ class GenerateWordLinks {
 	}
 	
 	GenerateWordLinks() {		
+	}
+	GenerateWordLinks(Map parameters) {
+		println "in gwl params are $parameters"
+		
 	}
 
 	String getJSONnetwork(String s) {

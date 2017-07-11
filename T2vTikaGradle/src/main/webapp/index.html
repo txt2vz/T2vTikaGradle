@@ -97,14 +97,14 @@ html {
 						<input type="text" name="twitQ" id="twitQ" size=40
 							value="word cloud"> <input type="button"
 							class="btn btn-primary" value="viz Twitter"
-							onclick="textIn(twitQ.value, true )">
+							onclick="twitter(twitQ.value)">
 					</div>
 
 					<div>Enter URL:</div>
 					<input type="text" id="url"
 						value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
 
-					<button onclick="textIn(url.value)" class="btn btn-primary">viz
+					<button onclick="textToNetwork(url.value)" class="btn btn-primary">viz
 						URL</button>
 					<br> <br>
 					<div class="btn btn-info fileinput-button">
@@ -291,7 +291,7 @@ html {
 			jsonDataTemp = jsonData;
 			console.log("json d " + jsonDataTemp);
 			var j = JSON.parse(jsonData);
-			console.log("j.name " + j.name);
+			//console.log("j.name " + j.name);
 
 			if (networkType == "forceNet")
 				drawLinks(jsonData);
@@ -350,6 +350,30 @@ html {
 				data : {
 					text : text,
 		//			tw : tw,
+					networkType : networkType,
+					cooc : cooc,
+					maxLinks : maxLinks,
+					maxWords : maxWords
+				},
+				success : function(jsonData, textStatus, jqXHR) {
+
+					draw(jsonData);
+					closeModal();
+				},
+			});
+		};
+		
+		function twitter(q) {
+			//q = q.replace(/%/g, '');
+			setNetworkType();
+			openModal();
+
+			jQuery.ajax({
+				//type : "POST",
+				url :  "twitterservice",//"textIn.groovy",
+				cache : false,
+				data : {
+					q : q,
 					networkType : networkType,
 					cooc : cooc,
 					maxLinks : maxLinks,

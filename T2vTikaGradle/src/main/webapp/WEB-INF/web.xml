@@ -32,5 +32,14 @@
 		<servlet-name>texttonetwork</servlet-name>
 		<url-pattern>/textinservice</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>twitter</servlet-name>
+		<servlet-class>twitter.TwitterText</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>twitter</servlet-name>
+		<url-pattern>/twitterservice</url-pattern>
+	</servlet-mapping>
 
 </web-app>

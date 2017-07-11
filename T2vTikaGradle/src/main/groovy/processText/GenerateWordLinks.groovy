@@ -5,9 +5,9 @@ import groovy.transform.*
 
 class GenerateWordLinks {
 
-	private def highFreqWords = 80
-	private def maxWordPairs = 40
-	private def coocIn = 0.5
+	private int highFreqWords = 80
+	private int maxWordPairs = 40
+	private float coocIn = 0.5
 	private String networkType = "tree"
 
 	GenerateWordLinks(String netType, Float cin, int maxL, int hfq) {
@@ -19,19 +19,24 @@ class GenerateWordLinks {
 		println "**GenerateWordLinks constructor - cocoIn: $coocIn maxWordPairs: $maxWordPairs highFreqWords: $highFreqWords "
 		//getJSONnetwork (s)
 	}
-	
-	GenerateWordLinks() {		
+
+	GenerateWordLinks() {
 	}
-	GenerateWordLinks(Map parameters) {
-		println "in gwl params are $parameters"
-		
+	GenerateWordLinks(Map ps) {
+		println "in gwl params are $ps"
+		networkType = ps['networkType'][0];   
+		coocIn =   ps['cooc'][0] as Float
+		maxWordPairs =  ps['maxLinks'][0] as Integer
+		highFreqWords =  ps['maxWords'][0] as Integer
+
+		println "in GWL construction highFreqWords = $highFreqWords netTYpe $networkType"
 	}
 
 	String getJSONnetwork(String s) {
 
 		//s=new File ('athenaBookChapter.txt').text
 		s = s ?: "empty text"
- 
+
 		def words = s.replaceAll(/\W/, "  ").toLowerCase().tokenize().minus(StopSet.stopSet)
 		// smallStopSet2);//  stopSet)
 
@@ -40,7 +45,7 @@ class GenerateWordLinks {
 		def stemmer = new PorterStemmer()
 		def stemInfo = [:] //stemmed word is key and value is a map of a particular word form and its frequency
 		def wordToPositionsMap = [:] //stemmed word is key and value is a list of positions where any of the words occur
- 
+
 		//min word size 1 or 2?
 		words.findAll { it.size() > 2 }
 		.eachWithIndex { it, indexWordPosition ->
@@ -97,10 +102,11 @@ class GenerateWordLinks {
 		//def json = getJSONgraph(wordPairList, stemInfo)
 		def json;
 
-		if (networkType == "tree")
-			json = getJSONtree(wordPairList, stemInfo)
+		if (networkType == "forceNet")
+			json= getJSONgraph(wordPairList, stemInfo)		
 		else
-			json= getJSONgraph(wordPairList, stemInfo)
+			json = getJSONtree(wordPairList, stemInfo)
+			
 
 		println "json is $json"
 		return json

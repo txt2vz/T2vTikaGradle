@@ -1,16 +1,16 @@
 /bin
 /build
-.gradle
 .classpath
-/build
 .project
 .settings
-gradle.prefs
+
 TwitterKeys.groovy
 *.class
 
 #Gradle
 .gradletasknamecache
 .gradle/
+.gradle
+gradle.prefs
 build/
 bin/

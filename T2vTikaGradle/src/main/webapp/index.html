@@ -89,7 +89,7 @@ html {
 					<textarea id="txta1" COLS="37" ROWS="6"
 						placeholder="Type or paste text here"></textarea>
 					<br> <input type="button" value="viz text"
-						class="btn btn-primary" onclick="textToNetwork(txta1.value)">
+						class="btn btn-primary" onclick="textToJSON(txta1.value)">
 				</div>
 				<div class="col-md-5">
 					<div>
@@ -104,7 +104,7 @@ html {
 					<input type="text" id="url"
 						value="https://en.wikipedia.org/wiki/Tag_cloud" size=40>
 
-					<button onclick="textToNetwork(url.value)" class="btn btn-primary">viz
+					<button onclick="urlToJSON(url.value)" class="btn btn-primary">viz
 						URL</button>
 					<br> <br>
 					<div class="btn btn-info fileinput-button">
@@ -193,7 +193,7 @@ html {
 		var maxWords = 50;
 		var oneLevel = true;
 		var networkType = "forceTree";
-		var jsonDataTemp;
+	//	var jsonDataTemp;
 
 		frontPage();
 
@@ -243,7 +243,7 @@ html {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if (keycode == '13') {
 				//console.log('You pressed a "enter" key in Twitter Q');
-				textIn(twitQ.value, true);
+				textToJSON(twitQ.value, true);
 			}
 			event.stopPropagation();
 		});
@@ -262,11 +262,10 @@ html {
 		//http://bl.ocks.org/bansaghi/f3cbb5e7b759b6a58aff
 		//radial zoomable collapsible
 		function radialZC(jsonText) {
-			console.log ("jsonTEX " + jsonText);
+			console.log ("jsonText in radialZC " + jsonText);
 
 			var json = JSON.parse(jsonText);
 			{
-
 				d3.select("svg").remove();
 				var tree = d3.select("#vis").append("svg")
 
@@ -288,8 +287,8 @@ html {
 		};
 
 		function draw(jsonData) {
-			jsonDataTemp = jsonData;
-			console.log("json d " + jsonDataTemp);
+			//jsonDataTemp = jsonData;
+			//console.log("json d " + jsonDataTemp);
 			var j = JSON.parse(jsonData);
 			//console.log("j.name " + j.name);
 
@@ -317,14 +316,10 @@ html {
 				done : function(e, data) {
 					closeModal();
 					if (data.result.startsWith("#error"))
-						alert("error " + data.result);
-					else
-						textToNetwork(data.result);
-						//function(jsonData, textStatus, jqXHR) {
-                     {
-						//draw(data); 	
-						console.log("dat is " + data.result);
-						radialZC(data.result);
+						alert("error in file upload " + data.result);
+					else{
+						textToJSON(data.result);					
+						//console.log("dat is " + data.result);						
 						closeModal();
 					}
 				},
@@ -334,22 +329,43 @@ html {
 					//   var progress = parseInt(data.loaded / data.total * 100, 10);
 					//  $('#progress .bar').css('width', progress + '%');
 				}
-
 			});
 		});
 
-		function textToNetwork(text) {
+		function textToJSON(text) {
 			text = text.replace(/%/g, '');
 			setNetworkType();
 			openModal();
 
 			jQuery.ajax({
-				//type : "POST",
-				url :  "textinservice",//"textIn.groovy",
+				type : "POST",
+				url :  "texttojsonservice",//"textIn.groovy",
 				cache : false,
 				data : {
 					text : text,
-		//			tw : tw,
+					networkType : networkType,
+					cooc : cooc,
+					maxLinks : maxLinks,
+					maxWords : maxWords
+				},
+				success : function(jsonData, textStatus, jqXHR) {
+					draw(jsonData);
+					closeModal();
+				},
+			});
+		};
+		
+		function urlToJSON(urlText) {
+			text = urlText.replace(/%/g, '');
+			setNetworkType();
+			openModal();
+
+			jQuery.ajax({
+				type : "POST",
+				url :  "urlservice",
+				cache : false,
+				data : {
+					urlText : urlText,
 					networkType : networkType,
 					cooc : cooc,
 					maxLinks : maxLinks,
@@ -369,8 +385,8 @@ html {
 			openModal();
 
 			jQuery.ajax({
-				//type : "POST",
-				url :  "twitterservice",//"textIn.groovy",
+				type : "POST",
+				url :  "twittertojsonservice",
 				cache : false,
 				data : {
 					q : q,

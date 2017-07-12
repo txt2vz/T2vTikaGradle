@@ -22,12 +22,12 @@ class GenerateWordLinks {
 
 	GenerateWordLinks() {
 	}
-	GenerateWordLinks(Map ps) {
-		println "in gwl params are $ps"
-		networkType = ps['networkType'][0];   
-		coocIn =   ps['cooc'][0] as Float
-		maxWordPairs =  ps['maxLinks'][0] as Integer
-		highFreqWords =  ps['maxWords'][0] as Integer
+	GenerateWordLinks(Map userParameters) {
+		println "in gwl params are $userParameters"
+		networkType = userParameters['networkType'][0];   
+		coocIn =   userParameters['cooc'][0] as Float
+		maxWordPairs =  userParameters['maxLinks'][0] as Integer
+		highFreqWords =  userParameters['maxWords'][0] as Integer
 
 		println "in GWL construction highFreqWords = $highFreqWords netTYpe $networkType"
 	}
